@@ -103,7 +103,30 @@ class GameViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
         scnView.addGestureRecognizer(panGesture)
+        
+        let toolbar = CGRect(x:0,y:800,width:800,height:100)
+        let toolView = UIView(frame:toolbar)
+        toolView.backgroundColor = UIColor.gray
+        
+        //spawnshape button
+        let spawnShapeButton = UIButton(type: UIButton.ButtonType.roundedRect)
+        spawnShapeButton.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        spawnShapeButton.addTarget(self,action: #selector(GameViewController.spawnShape(_:)), for: .primaryActionTriggered)
+        spawnShapeButton.translatesAutoresizingMaskIntoConstraints = false
+        spawnShapeButton.titleLabel?.font = UIFont(name: "LuzSans-Book", size: 15)
+        spawnShapeButton.tintColor = UIColor.purple
+        spawnShapeButton.setTitleColor(UIColor.purple, for: .normal)
+        spawnShapeButton.setTitle("Spawn Shape",for: .normal)
+        
+        scnView.addSubview(toolView)
+        scnView.addSubview(spawnShapeButton)
+        
 
+    }
+    
+    @objc
+    func spawnShape(_ spawnShapeButton: UIButton){
+        print("spawning shape")
     }
     
     @objc
