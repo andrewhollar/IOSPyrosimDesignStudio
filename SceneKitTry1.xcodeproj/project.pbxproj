@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		1AACAF09220DF05B00DB2560 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AACAF08220DF05B00DB2560 /* AppDelegate.swift */; };
-		1AACAF0D220DF05B00DB2560 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AACAF0C220DF05B00DB2560 /* GameViewController.swift */; };
+		1AACAF0D220DF05B00DB2560 /* StudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AACAF0C220DF05B00DB2560 /* StudioViewController.swift */; };
 		1AACAF10220DF05B00DB2560 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AACAF0E220DF05B00DB2560 /* Main.storyboard */; };
 		1AACAF12220DF05C00DB2560 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AACAF11220DF05C00DB2560 /* Assets.xcassets */; };
 		1AACAF15220DF05C00DB2560 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AACAF13220DF05C00DB2560 /* LaunchScreen.storyboard */; };
-		1AACAF20220DF05C00DB2560 /* SceneKitTry1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AACAF1F220DF05C00DB2560 /* SceneKitTry1Tests.swift */; };
-		1AACAF2B220DF05C00DB2560 /* SceneKitTry1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AACAF2A220DF05C00DB2560 /* SceneKitTry1UITests.swift */; };
+		409EBBF922286954008BC5E7 /* ToolBarShapeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409EBBF822286954008BC5E7 /* ToolBarShapeSelector.swift */; };
+		409EBBFC22287744008BC5E7 /* ShapeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409EBBFB22287744008BC5E7 /* ShapeManager.swift */; };
+		409EBBFE22287D6B008BC5E7 /* ToolBarRobotParts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409EBBFD22287D6B008BC5E7 /* ToolBarRobotParts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,17 +37,16 @@
 /* Begin PBXFileReference section */
 		1AACAF05220DF05B00DB2560 /* SceneKitTry1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SceneKitTry1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AACAF08220DF05B00DB2560 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1AACAF0C220DF05B00DB2560 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		1AACAF0C220DF05B00DB2560 /* StudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioViewController.swift; sourceTree = "<group>"; };
 		1AACAF0F220DF05B00DB2560 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1AACAF11220DF05C00DB2560 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1AACAF14220DF05C00DB2560 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1AACAF16220DF05C00DB2560 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AACAF1B220DF05C00DB2560 /* SceneKitTry1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SceneKitTry1Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1AACAF1F220DF05C00DB2560 /* SceneKitTry1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKitTry1Tests.swift; sourceTree = "<group>"; };
-		1AACAF21220DF05C00DB2560 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AACAF26220DF05C00DB2560 /* SceneKitTry1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SceneKitTry1UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1AACAF2A220DF05C00DB2560 /* SceneKitTry1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKitTry1UITests.swift; sourceTree = "<group>"; };
-		1AACAF2C220DF05C00DB2560 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		409EBBF822286954008BC5E7 /* ToolBarShapeSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarShapeSelector.swift; sourceTree = "<group>"; };
+		409EBBFB22287744008BC5E7 /* ShapeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeManager.swift; sourceTree = "<group>"; };
+		409EBBFD22287D6B008BC5E7 /* ToolBarRobotParts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarRobotParts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +78,6 @@
 			isa = PBXGroup;
 			children = (
 				1AACAF07220DF05B00DB2560 /* SceneKitTry1 */,
-				1AACAF1E220DF05C00DB2560 /* SceneKitTry1Tests */,
-				1AACAF29220DF05C00DB2560 /* SceneKitTry1UITests */,
 				1AACAF06220DF05B00DB2560 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -97,8 +95,10 @@
 		1AACAF07220DF05B00DB2560 /* SceneKitTry1 */ = {
 			isa = PBXGroup;
 			children = (
+				409EBBFA22287736008BC5E7 /* managers */,
+				409EBBF722286900008BC5E7 /* toolbars */,
 				1AACAF08220DF05B00DB2560 /* AppDelegate.swift */,
-				1AACAF0C220DF05B00DB2560 /* GameViewController.swift */,
+				1AACAF0C220DF05B00DB2560 /* StudioViewController.swift */,
 				1AACAF0E220DF05B00DB2560 /* Main.storyboard */,
 				1AACAF11220DF05C00DB2560 /* Assets.xcassets */,
 				1AACAF13220DF05C00DB2560 /* LaunchScreen.storyboard */,
@@ -107,22 +107,21 @@
 			path = SceneKitTry1;
 			sourceTree = "<group>";
 		};
-		1AACAF1E220DF05C00DB2560 /* SceneKitTry1Tests */ = {
+		409EBBF722286900008BC5E7 /* toolbars */ = {
 			isa = PBXGroup;
 			children = (
-				1AACAF1F220DF05C00DB2560 /* SceneKitTry1Tests.swift */,
-				1AACAF21220DF05C00DB2560 /* Info.plist */,
+				409EBBF822286954008BC5E7 /* ToolBarShapeSelector.swift */,
+				409EBBFD22287D6B008BC5E7 /* ToolBarRobotParts.swift */,
 			);
-			path = SceneKitTry1Tests;
+			path = toolbars;
 			sourceTree = "<group>";
 		};
-		1AACAF29220DF05C00DB2560 /* SceneKitTry1UITests */ = {
+		409EBBFA22287736008BC5E7 /* managers */ = {
 			isa = PBXGroup;
 			children = (
-				1AACAF2A220DF05C00DB2560 /* SceneKitTry1UITests.swift */,
-				1AACAF2C220DF05C00DB2560 /* Info.plist */,
+				409EBBFB22287744008BC5E7 /* ShapeManager.swift */,
 			);
-			path = SceneKitTry1UITests;
+			path = managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,7 +255,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AACAF0D220DF05B00DB2560 /* GameViewController.swift in Sources */,
+				409EBBF922286954008BC5E7 /* ToolBarShapeSelector.swift in Sources */,
+				409EBBFE22287D6B008BC5E7 /* ToolBarRobotParts.swift in Sources */,
+				409EBBFC22287744008BC5E7 /* ShapeManager.swift in Sources */,
+				1AACAF0D220DF05B00DB2560 /* StudioViewController.swift in Sources */,
 				1AACAF09220DF05B00DB2560 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,7 +267,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AACAF20220DF05C00DB2560 /* SceneKitTry1Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,7 +274,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AACAF2B220DF05C00DB2560 /* SceneKitTry1UITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

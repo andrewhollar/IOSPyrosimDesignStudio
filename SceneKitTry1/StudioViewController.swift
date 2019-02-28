@@ -10,11 +10,21 @@ import UIKit
 import QuartzCore
 import SceneKit
 
-class GameViewController: UIViewController {
+class StudioViewController: UIViewController {
+    
+    var shapeManager: ShapeManager?
+    func getShapeManager() -> ShapeManager{
+        return shapeManager!
+    }
+    var toolBarShapeSelector: ToolBarShapeSelector?
+    var toolBarRobotParts: ToolBarRobotParts?
+    func getToolBarRobotParts() -> ToolBarRobotParts{
+        return toolBarRobotParts!
+    }
     
     // Geometry
     var axesNode: SCNNode = SCNNode()
-    var geometryNode: SCNNode = SCNNode()
+    //var geometryNode: SCNNode = SCNNode()
     
     // Gestures
     var currentAngle: Float = 0.0
@@ -49,6 +59,7 @@ class GameViewController: UIViewController {
         omniLightNode.position = SCNVector3Make(0, 50, 50)
         scene.rootNode.addChildNode(omniLightNode)
         
+        /*
         let boxGeometry = SCNBox(width: 10.0, height: 10.0, length: 10.0, chamferRadius: 1.0)
         let boxNode = SCNNode(geometry: boxGeometry)
         let boxMaterial = SCNMaterial()
@@ -58,7 +69,8 @@ class GameViewController: UIViewController {
         scene.rootNode.addChildNode(boxNode)
         
         geometryNode.addChildNode(boxNode)
-        
+ 
+        */
         let xGeom = SCNBox(width: 0.25, height: 10, length: 0.25, chamferRadius: 0.1)
         xGeom.firstMaterial?.diffuse.contents  = UIColor(red: 150.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         let xNode = SCNNode(geometry: xGeom)
@@ -83,7 +95,7 @@ class GameViewController: UIViewController {
         axesNode.addChildNode(zNode)
 
         scene.rootNode.addChildNode(axesNode)
-        scene.rootNode.addChildNode(geometryNode)
+        //scene.rootNode.addChildNode(geometryNode)
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture(sender:)))
 
         // retrieve the SCNView
@@ -104,29 +116,23 @@ class GameViewController: UIViewController {
         scnView.addGestureRecognizer(tapGesture)
         scnView.addGestureRecognizer(panGesture)
         
-        let toolbar = CGRect(x:0,y:800,width:800,height:100)
-        let toolView = UIView(frame:toolbar)
-        toolView.backgroundColor = UIColor.gray
-        
-        //spawnshape button
-        let spawnShapeButton = UIButton(type: UIButton.ButtonType.roundedRect)
-        spawnShapeButton.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        spawnShapeButton.addTarget(self,action: #selector(GameViewController.spawnShape(_:)), for: .primaryActionTriggered)
-        spawnShapeButton.translatesAutoresizingMaskIntoConstraints = false
-        spawnShapeButton.titleLabel?.font = UIFont(name: "LuzSans-Book", size: 15)
-        spawnShapeButton.tintColor = UIColor.purple
-        spawnShapeButton.setTitleColor(UIColor.purple, for: .normal)
-        spawnShapeButton.setTitle("Spawn Shape",for: .normal)
-        
-        scnView.addSubview(toolView)
-        scnView.addSubview(spawnShapeButton)
-        
-
+        toolBarRobotParts = ToolBarRobotParts(controller: self)
+        shapeManager = ShapeManager(controller: self)
+        toolBarShapeSelector = ToolBarShapeSelector(controller: self)
+    }
+    
+    func log(message:String){
+        print(message)
     }
     
     @objc
-    func spawnShape(_ spawnShapeButton: UIButton){
-        print("spawning shape")
+    func handleButtonPress(sender: UIButton!) {
+        switch(sender.currentTitle) {
+        case "Test Button":
+            shapeManager!.spawnCircle()
+        default:
+            print("Button press could not be handled, unrecognized name.")
+        }
     }
     
     @objc
@@ -135,7 +141,7 @@ class GameViewController: UIViewController {
         var newAngle = (Float)(translation.x)*(Float)(Double.pi)/180.0
         newAngle += currentAngle
         
-        geometryNode.transform = SCNMatrix4MakeRotation(newAngle, 0, 1, 0)
+        //geometryNode.transform = SCNMatrix4MakeRotation(newAngle, 0, 1, 0)
         //axesNode.transform = SCNMatrix4MakeRotation(newAngle, 0, 1, 0)
         
         if(sender.state == UIGestureRecognizer.State.ended) {
