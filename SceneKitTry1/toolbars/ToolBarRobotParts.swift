@@ -40,6 +40,7 @@ class ToolBarRobotParts{
     
     func addShapeNode(node: SCNNode){
         shapeNodes.append(node)
+        viewController.setCurrentShape(node: node)
         update()
     }
     

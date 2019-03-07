@@ -17,9 +17,18 @@ class StudioViewController: UIViewController {
         return shapeManager!
     }
     var toolBarShapeSelector: ToolBarShapeSelector?
+    var toolBarShapeEditor: ToolBarShapeEditor?
     var toolBarRobotParts: ToolBarRobotParts?
     func getToolBarRobotParts() -> ToolBarRobotParts{
         return toolBarRobotParts!
+    }
+    
+    var currentShape: SCNNode?
+    func getCurrentShape() -> SCNNode{
+        return currentShape!
+    }
+    func setCurrentShape(node: SCNNode){
+        currentShape = node
     }
     
     // Geometry
@@ -119,6 +128,7 @@ class StudioViewController: UIViewController {
         toolBarRobotParts = ToolBarRobotParts(controller: self)
         shapeManager = ShapeManager(controller: self)
         toolBarShapeSelector = ToolBarShapeSelector(controller: self)
+        toolBarShapeEditor = ToolBarShapeEditor(controller: self)
     }
     
     func log(message:String){
