@@ -23,22 +23,54 @@ class ToolBarShapeEditor {
     func draw(){
         let toolbar = CGRect(x:0,y:700,width:800,height:100)
         let toolView = UIView(frame:toolbar)
-        toolView.backgroundColor = UIColor.init(red:150,green:150,blue:150, alpha: 1)
+        toolView.backgroundColor = UIColor.init(red:0.7,green:0.7,blue:0.7, alpha: 1)
         
-        //sphere button
-        let sphereButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
-        sphereButton.backgroundColor = UIColor.purple
-        sphereButton.setTitle("addX", for: .normal)
-        sphereButton.addTarget(self, action: #selector(handleButtonPress), for: .primaryActionTriggered)
-        toolView.addSubview(sphereButton)
+        //addX button
+        let addXButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+        addXButton.backgroundColor = UIColor.init(red:0.3,green:0.4,blue:0.7, alpha: 1)
+        addXButton.setTitle("addX", for: .normal)
+        addXButton.addTarget(self, action: #selector(handleButtonPress), for: .primaryActionTriggered)
+        toolView.addSubview(addXButton)
         
-        //rectangle button
-        let rectButton = UIButton(frame: CGRect(x: 100, y: 0, width: 100, height: 50))
-        rectButton.backgroundColor = UIColor.purple
-        rectButton.setTitle("subX", for: .normal)
-        rectButton.addTarget(self, action: #selector(handleButtonPress), for: .primaryActionTriggered)
-        toolView.addSubview(rectButton)
+        //subX button
+        let subXButton = UIButton(frame: CGRect(x: 0, y: 50, width: 100, height: 50))
+        subXButton.backgroundColor = UIColor.init(red:0.3,green:0.4,blue:0.7, alpha: 1)
+        subXButton.setTitle("subX", for: .normal)
+        subXButton.addTarget(self, action: #selector(handleButtonPress), for: .primaryActionTriggered)
+        toolView.addSubview(subXButton)
         viewController.view.addSubview(toolView)
+        
+        //addY button
+        let addYButton = UIButton(frame: CGRect(x: 100, y: 0, width: 100, height: 50))
+        addYButton.backgroundColor = UIColor.init(red:0.3,green:0.4,blue:0.7, alpha: 1)
+        addYButton.setTitle("addY", for: .normal)
+        addYButton.addTarget(self, action: #selector(handleButtonPress), for: .primaryActionTriggered)
+        toolView.addSubview(addYButton)
+        
+        //subY button
+        let subYButton = UIButton(frame: CGRect(x: 100, y: 50, width: 100, height: 50))
+        subYButton.backgroundColor = UIColor.init(red:0.3,green:0.4,blue:0.7, alpha: 1)
+        subYButton.setTitle("subY", for: .normal)
+        subYButton.addTarget(self, action: #selector(handleButtonPress), for: .primaryActionTriggered)
+        toolView.addSubview(subYButton)
+        viewController.view.addSubview(toolView)
+        
+        //addZ button
+        let addZButton = UIButton(frame: CGRect(x: 200, y: 0, width: 100, height: 50))
+        addZButton.backgroundColor = UIColor.init(red:0.3,green:0.4,blue:0.7, alpha: 1)
+        addZButton.setTitle("addZ", for: .normal)
+        addZButton.addTarget(self, action: #selector(handleButtonPress), for: .primaryActionTriggered)
+        toolView.addSubview(addZButton)
+        
+        //subZ button
+        let subZButton = UIButton(frame: CGRect(x: 200, y: 50, width: 100, height: 50))
+        subZButton.backgroundColor = UIColor.init(red:0.3,green:0.4,blue:0.7, alpha: 1)
+        subZButton.setTitle("subZ", for: .normal)
+        subZButton.addTarget(self, action: #selector(handleButtonPress), for: .primaryActionTriggered)
+        toolView.addSubview(subZButton)
+        viewController.view.addSubview(toolView)
+        
+        
     }
     
     @objc
@@ -46,23 +78,35 @@ class ToolBarShapeEditor {
         switch(sender.currentTitle) {
         case "addX":
             print("adding x")
-            viewController.getCurrentShape().position.x += 1
+            if(viewController.getCurrentShape() != nil){
+                viewController.getCurrentShape()!.position.x += 1
+            }
         case "subX":
             print("subtracting x")
-            viewController.getCurrentShape().position.x -= 1
+            if(viewController.getCurrentShape() != nil){
+                viewController.getCurrentShape()!.position.x -= 1
+            }
         case "addY":
             print("adding y")
-            viewController.getCurrentShape().position.y += 1
+            if(viewController.getCurrentShape() != nil){
+                viewController.getCurrentShape()!.position.y += 1
+            }
         case "subY":
             print("subtracting y")
-            viewController.getCurrentShape().position.y -= 1
+            if(viewController.getCurrentShape() != nil){
+                viewController.getCurrentShape()!.position.y -= 1
+            }
         case "addZ":
             print("adding z")
-            viewController.getCurrentShape().position.z += 1
+            if(viewController.getCurrentShape() != nil){
+                viewController.getCurrentShape()!.position.z += 1
+            }
         case "subZ":
             print("subtracting z")
             //if z < ground height, do not lower futher
-            viewController.getCurrentShape().position.z -= 1
+            if(viewController.getCurrentShape() != nil){
+                viewController.getCurrentShape()!.position.z -= 1
+            }
             
         default:
             print("Button press could not be handled, unrecognized name.")

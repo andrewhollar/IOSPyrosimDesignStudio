@@ -24,8 +24,8 @@ class StudioViewController: UIViewController {
     }
     
     var currentShape: SCNNode?
-    func getCurrentShape() -> SCNNode{
-        return currentShape!
+    func getCurrentShape() -> SCNNode?{
+        return currentShape
     }
     func setCurrentShape(node: SCNNode){
         currentShape = node
@@ -135,15 +135,6 @@ class StudioViewController: UIViewController {
         print(message)
     }
     
-    @objc
-    func handleButtonPress(sender: UIButton!) {
-        switch(sender.currentTitle) {
-        case "Test Button":
-            shapeManager!.spawnCircle()
-        default:
-            print("Button press could not be handled, unrecognized name.")
-        }
-    }
     
     @objc
     func panGesture(sender: UIPanGestureRecognizer) {
