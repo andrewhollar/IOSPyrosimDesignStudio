@@ -12,6 +12,8 @@ import SceneKit
 
 class StudioViewController: UIViewController {
     
+    var cameraNode: SCNNode = SCNNode()
+    
     var shapeManager: ShapeManager?
     func getShapeManager() -> ShapeManager{
         return shapeManager!
@@ -32,6 +34,7 @@ class StudioViewController: UIViewController {
     }
     
     // Geometry
+    var originNode: SCNNode = SCNNode()
     var axesNode: SCNNode = SCNNode()
     //var geometryNode: SCNNode = SCNNode()
     
@@ -45,12 +48,13 @@ class StudioViewController: UIViewController {
         let scene = SCNScene()
 
         // create camera
-        let cameraNode = SCNNode()
+        //var cameraNode: SCNNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.position = SCNVector3Make(25, 0, 25)
-        
-        let lookAt = SCNLookAtConstraint(target: axesNode)
-        cameraNode.constraints = [lookAt]
+        //cameraNode.rotation = SCNVector4(x: 0, y: 0, z: 0, w: Float(Double.pi / 2))
+        cameraNode.eulerAngles  = SCNVector3Make(0, GLKMathDegreesToRadians(45), 0)
+        //let lookAt = SCNLookAtConstraint(target: originNode)
+        //cameraNode.constraints = [lookAt]
         
         scene.rootNode.addChildNode(cameraNode)
         
@@ -80,26 +84,26 @@ class StudioViewController: UIViewController {
         geometryNode.addChildNode(boxNode)
  
         */
-        let xGeom = SCNBox(width: 0.25, height: 10, length: 0.25, chamferRadius: 0.1)
+        let xGeom = SCNBox(width: 0.1, height: 10, length: 0.1, chamferRadius: 0.1)
         xGeom.firstMaterial?.diffuse.contents  = UIColor(red: 150.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         let xNode = SCNNode(geometry: xGeom)
-        xNode.position = SCNVector3(0,0,5)
-        xNode.rotation = SCNVector4(x: 1, y: 0, z: 0, w: Float(Double.pi / 2))
+        xNode.position = SCNVector3(5,0,0)
+        xNode.rotation = SCNVector4(x: 0, y: 0, z: 1, w: Float(Double.pi / 2))
         
         axesNode.addChildNode(xNode)
         
-        let yGeom = SCNBox(width: 0.25, height: 10, length: 0.25, chamferRadius: 0.1)
+        let yGeom = SCNBox(width: 0.1, height: 10, length: 0.1, chamferRadius: 0.1)
         yGeom.firstMaterial?.diffuse.contents  = UIColor(red: 30.0 / 255.0, green: 150.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         let yNode = SCNNode(geometry: yGeom)
         yNode.position = SCNVector3(0,5,0)
         
         axesNode.addChildNode(yNode)
         
-        let zGeom = SCNBox(width: 0.25, height: 10, length: 0.25, chamferRadius: 0.1)
+        let zGeom = SCNBox(width: 0.1, height: 10, length: 0.1, chamferRadius: 0.1)
         zGeom.firstMaterial?.diffuse.contents  = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 150.0 / 255.0, alpha: 1)
         let zNode = SCNNode(geometry: zGeom)
-        zNode.position = SCNVector3(5,0,0)
-        zNode.rotation = SCNVector4(x: 0, y: 0, z: 1, w: Float(Double.pi / 2))
+        zNode.position = SCNVector3(0,0,5)
+        zNode.rotation = SCNVector4(x: 1, y: 0, z: 0, w: Float(Double.pi / 2))
         
         axesNode.addChildNode(zNode)
 
@@ -129,6 +133,22 @@ class StudioViewController: UIViewController {
         shapeManager = ShapeManager(controller: self)
         toolBarShapeSelector = ToolBarShapeSelector(controller: self)
         toolBarShapeEditor = ToolBarShapeEditor(controller: self)
+        
+        let segmentedControl = UISegmentedControl(items: ["Default", "Top", "Right"])
+        segmentedControl.backgroundColor = UIColor.white.withAlphaComponent(0)
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.addTarget(self, action: #selector(StudioViewController.cameraChanged(_:)), for: .valueChanged)
+        scnView.addSubview(segmentedControl)
+        
+        let topConstraint = segmentedControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 5)
+        let margins = view.layoutMarginsGuide
+        let leadingConstraint = segmentedControl.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 150)
+        let trailingConstraint = segmentedControl.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
+        topConstraint.isActive = true
+        leadingConstraint.isActive = true
+        trailingConstraint.isActive = true
+        
     }
     
     func log(message:String){
@@ -183,6 +203,25 @@ class StudioViewController: UIViewController {
             material.emission.contents = UIColor.red
             
             SCNTransaction.commit()
+        }
+    }
+    
+    @objc func cameraChanged(_ segControl: UISegmentedControl) {
+        switch segControl.selectedSegmentIndex {
+        case 0:
+            print("default camera selected")
+            cameraNode.position = SCNVector3Make(25, 0, 25)
+            cameraNode.eulerAngles  = SCNVector3Make(0, GLKMathDegreesToRadians(45), 0)
+        case 1:
+            print("top camera selected")
+            cameraNode.position = SCNVector3Make(0, 25, 0)
+            cameraNode.eulerAngles  = SCNVector3Make(GLKMathDegreesToRadians(-90), 0, 0)
+        case 2:
+            print("Right camera selected")
+            cameraNode.position = SCNVector3Make(0, 0, 25)
+            cameraNode.eulerAngles = SCNVector3Make(0,GLKMathDegreesToRadians(0), 0)
+        default:
+            break
         }
     }
     
