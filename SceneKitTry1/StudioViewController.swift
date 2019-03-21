@@ -30,7 +30,9 @@ class StudioViewController: UIViewController {
         return currentShape
     }
     func setCurrentShape(node: SCNNode){
+        currentShape?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0.9,blue:0.9,alpha:1)
         currentShape = node
+        node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.7,green:0.5,blue:0.3,alpha:1)
     }
     
     // Geometry

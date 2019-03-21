@@ -22,6 +22,10 @@ class ShapeManager {
         print("spawning circle")
         let scnView = viewController.view as! SCNView
         let sphereGeometry = SCNSphere(radius: 5)
+        let r = 0.9
+        let g = 0.9
+        let b = 0.9
+        sphereGeometry.firstMaterial?.diffuse.contents = UIColor.init(red:CGFloat(r), green:CGFloat(g), blue:CGFloat(b), alpha:1)
         let sphereNode = SCNNode(geometry: sphereGeometry)
         scnView.scene?.rootNode.addChildNode(sphereNode)
         return sphereNode
@@ -39,6 +43,5 @@ class ShapeManager {
         scnView.scene?.rootNode.addChildNode(rectangleNode)
         return rectangleNode
     }
-    
     
 }
