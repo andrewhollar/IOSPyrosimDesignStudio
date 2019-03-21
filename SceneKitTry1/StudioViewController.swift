@@ -12,7 +12,7 @@ import SceneKit
 
 class StudioViewController: UIViewController {
     
-    var cameraNode: SCNNode = SCNNode()
+    //var cameraNode: SCNNode = SCNNode()
     
     var shapeManager: ShapeManager?
     func getShapeManager() -> ShapeManager{
@@ -48,7 +48,7 @@ class StudioViewController: UIViewController {
         let scene = SCNScene()
 
         // create camera
-        //var cameraNode: SCNNode = SCNNode()
+        var cameraNode: SCNNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.position = SCNVector3Make(25, 0, 25)
         //cameraNode.rotation = SCNVector4(x: 0, y: 0, z: 0, w: Float(Double.pi / 2))
@@ -113,8 +113,8 @@ class StudioViewController: UIViewController {
 
         // retrieve the SCNView
         let scnView = self.view as! SCNView
-        scnView.allowsCameraControl = false
-
+        scnView.allowsCameraControl = true
+        
         // set the scene to the view
         scnView.scene = scene
         
@@ -134,7 +134,7 @@ class StudioViewController: UIViewController {
         toolBarShapeSelector = ToolBarShapeSelector(controller: self)
         toolBarShapeEditor = ToolBarShapeEditor(controller: self)
         
-        let segmentedControl = UISegmentedControl(items: ["Default", "Top", "Right"])
+        let segmentedControl = UISegmentedControl(items: ["Default", "Top", "Left"])
         segmentedControl.backgroundColor = UIColor.white.withAlphaComponent(0)
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
@@ -207,19 +207,22 @@ class StudioViewController: UIViewController {
     }
     
     @objc func cameraChanged(_ segControl: UISegmentedControl) {
+        let scnView = self.view as! SCNView
+
         switch segControl.selectedSegmentIndex {
         case 0:
             print("default camera selected")
-            cameraNode.position = SCNVector3Make(25, 0, 25)
-            cameraNode.eulerAngles  = SCNVector3Make(0, GLKMathDegreesToRadians(45), 0)
+            scnView.pointOfView?.position = SCNVector3Make(25,0, 25)
+            scnView.pointOfView?.eulerAngles = SCNVector3Make(0, GLKMathDegreesToRadians(45), 0)
+
         case 1:
             print("top camera selected")
-            cameraNode.position = SCNVector3Make(0, 25, 0)
-            cameraNode.eulerAngles  = SCNVector3Make(GLKMathDegreesToRadians(-90), 0, 0)
+            scnView.pointOfView?.position = SCNVector3Make(0, 25, 0)
+            scnView.pointOfView?.eulerAngles = SCNVector3Make(GLKMathDegreesToRadians(-90), 0, 0)
         case 2:
             print("Right camera selected")
-            cameraNode.position = SCNVector3Make(0, 0, 25)
-            cameraNode.eulerAngles = SCNVector3Make(0,GLKMathDegreesToRadians(0), 0)
+            scnView.pointOfView?.position = SCNVector3Make(0, 0, 25)
+            scnView.pointOfView?.eulerAngles = SCNVector3Make(0,GLKMathDegreesToRadians(0), 0)
         default:
             break
         }
