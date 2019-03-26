@@ -30,11 +30,11 @@ class ToolBarRobotParts{
         }
         var i = 0;
         for node in shapeNodes{
-            let SelectPartButton = UIButton(frame: CGRect(x: 15, y: (i*30)+15, width: 25, height: 25))
-            SelectPartButton.backgroundColor = node.geometry?.firstMaterial?.diffuse.contents as! UIColor
-            SelectPartButton.setTitle("O\(i)", for: .normal)
-            SelectPartButton.addTarget(self, action: #selector(setCurrentShape), for: .primaryActionTriggered)
-            toolView.addSubview(SelectPartButton)
+            let selectPartButton = UIButton(frame: CGRect(x: 15, y: (i*30)+15, width: 25, height: 25))
+            selectPartButton.backgroundColor = node.geometry?.firstMaterial?.diffuse.contents as! UIColor
+            selectPartButton.setTitle("O\(i)", for: .normal)
+            selectPartButton.addTarget(self, action: #selector(setCurrentShape), for: .primaryActionTriggered)
+            toolView.addSubview(selectPartButton)
             i+=1
         }
         
@@ -45,7 +45,6 @@ class ToolBarRobotParts{
         var title = sender.currentTitle!
         let objectType = title.first!
         let index = Int(title.dropFirst())!
-        print("\(objectType) - \(index)")
         if(objectType == "O"){
             viewController.setCurrentShape(node: shapeNodes[index])
         }

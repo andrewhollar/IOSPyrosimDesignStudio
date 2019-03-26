@@ -67,6 +67,7 @@ class ToolBarShapeEditor {
         subZButton.backgroundColor = UIColor.init(red:0.3,green:0.4,blue:0.7, alpha: 1)
         subZButton.setTitle("subZ", for: .normal)
         subZButton.addTarget(self, action: #selector(handleButtonPress), for: .primaryActionTriggered)
+        //subZButton.setImage(UIImage(named: ""), for: UIControl.State.normal)
         toolView.addSubview(subZButton)
         viewController.view.addSubview(toolView)
         
