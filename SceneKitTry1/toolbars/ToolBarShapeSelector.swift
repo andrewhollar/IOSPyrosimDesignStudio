@@ -33,6 +33,7 @@ class ToolBarShapeSelector {
         sphereButton.backgroundColor = UIColor.purple
         sphereButton.setTitle("Circle", for: .normal)
         sphereButton.addTarget(self, action: #selector(handleButtonPress), for: .primaryActionTriggered)
+        sphereButton.setImage(UIImage(named: "cylinderButton"), for: UIControl.State.normal)
         toolView.addSubview(sphereButton)
         
         //rectangle button
@@ -40,6 +41,7 @@ class ToolBarShapeSelector {
         rectButton.backgroundColor = UIColor.purple
         rectButton.setTitle("Rectangle", for: .normal)
         rectButton.addTarget(self, action: #selector(handleButtonPress), for: .primaryActionTriggered)
+        rectButton.setImage(UIImage(named: "boxButton"), for: UIControl.State.normal)
         toolView.addSubview(rectButton)
         viewController.view.addSubview(toolView)
     }
