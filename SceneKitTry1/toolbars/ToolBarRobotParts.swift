@@ -14,14 +14,24 @@ class ToolBarRobotParts{
     var viewController: StudioViewController
     var shapeNodes = [SCNNode]()
     var neuronNodes = [SCNNode]()
-    let toolView: UIView
+    let toolView: UIScrollView!
     
     init(controller: StudioViewController){
         self.viewController = controller
         let toolbar = CGRect(x:0,y:33,width:77,height:300)
-        toolView = UIView(frame:toolbar)
+        //toolView = UIView(frame:toolbar)
+        //toolView.backgroundColor = UIColor.darkGray
+        //viewController.view.addSubview(toolView)
+        
+        toolView = UIScrollView(frame: toolbar)
         toolView.backgroundColor = UIColor.darkGray
+        
+        let contentWidth = toolView.bounds.width
+        let contentHeight = toolView.bounds.height * 5
+        toolView.contentSize = CGSize(width: contentWidth, height: contentHeight)
+        
         viewController.view.addSubview(toolView)
+        
     }
     
     func update(){
