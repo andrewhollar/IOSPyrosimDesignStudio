@@ -12,10 +12,13 @@
 		1AACAF10220DF05B00DB2560 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AACAF0E220DF05B00DB2560 /* Main.storyboard */; };
 		1AACAF12220DF05C00DB2560 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AACAF11220DF05C00DB2560 /* Assets.xcassets */; };
 		1AACAF15220DF05C00DB2560 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AACAF13220DF05C00DB2560 /* LaunchScreen.storyboard */; };
-		4095BD0F22316BC1003CFFCA /* ToolBarShapeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095BD0E22316BC1003CFFCA /* ToolBarShapeEditor.swift */; };
-		409EBBF922286954008BC5E7 /* ToolBarShapeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409EBBF822286954008BC5E7 /* ToolBarShapeSelector.swift */; };
+		406D75DF224EAE1700C583B9 /* ToolBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75DE224EAE1700C583B9 /* ToolBarManager.swift */; };
+		406D75E1224EB27000C583B9 /* Robot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E0224EB27000C583B9 /* Robot.swift */; };
+		406D75E4224EB36900C583B9 /* HierarchyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E3224EB36900C583B9 /* HierarchyView.swift */; };
+		406D75E6224EB37600C583B9 /* ToggleToolBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E5224EB37600C583B9 /* ToggleToolBarView.swift */; };
+		406D75E8224EBE9600C583B9 /* MovementToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E7224EBE9600C583B9 /* MovementToolBar.swift */; };
+		406D75EA224EC10100C583B9 /* ShapeSelectorToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E9224EC10100C583B9 /* ShapeSelectorToolBar.swift */; };
 		409EBBFC22287744008BC5E7 /* ShapeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409EBBFB22287744008BC5E7 /* ShapeManager.swift */; };
-		409EBBFE22287D6B008BC5E7 /* ToolBarRobotParts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409EBBFD22287D6B008BC5E7 /* ToolBarRobotParts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,10 +48,13 @@
 		1AACAF16220DF05C00DB2560 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AACAF1B220DF05C00DB2560 /* SceneKitTry1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SceneKitTry1Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AACAF26220DF05C00DB2560 /* SceneKitTry1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SceneKitTry1UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4095BD0E22316BC1003CFFCA /* ToolBarShapeEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarShapeEditor.swift; sourceTree = "<group>"; };
-		409EBBF822286954008BC5E7 /* ToolBarShapeSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarShapeSelector.swift; sourceTree = "<group>"; };
+		406D75DE224EAE1700C583B9 /* ToolBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarManager.swift; sourceTree = "<group>"; };
+		406D75E0224EB27000C583B9 /* Robot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Robot.swift; sourceTree = "<group>"; };
+		406D75E3224EB36900C583B9 /* HierarchyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HierarchyView.swift; sourceTree = "<group>"; };
+		406D75E5224EB37600C583B9 /* ToggleToolBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleToolBarView.swift; sourceTree = "<group>"; };
+		406D75E7224EBE9600C583B9 /* MovementToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementToolBar.swift; sourceTree = "<group>"; };
+		406D75E9224EC10100C583B9 /* ShapeSelectorToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeSelectorToolBar.swift; sourceTree = "<group>"; };
 		409EBBFB22287744008BC5E7 /* ShapeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeManager.swift; sourceTree = "<group>"; };
-		409EBBFD22287D6B008BC5E7 /* ToolBarRobotParts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarRobotParts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +103,7 @@
 		1AACAF07220DF05B00DB2560 /* SceneKitTry1 */ = {
 			isa = PBXGroup;
 			children = (
+				406D75E2224EB2C900C583B9 /* views */,
 				409EBBFA22287736008BC5E7 /* managers */,
 				409EBBF722286900008BC5E7 /* toolbars */,
 				1AACAF08220DF05B00DB2560 /* AppDelegate.swift */,
@@ -105,16 +112,25 @@
 				1AACAF11220DF05C00DB2560 /* Assets.xcassets */,
 				1AACAF13220DF05C00DB2560 /* LaunchScreen.storyboard */,
 				1AACAF16220DF05C00DB2560 /* Info.plist */,
+				406D75E0224EB27000C583B9 /* Robot.swift */,
 			);
 			path = SceneKitTry1;
+			sourceTree = "<group>";
+		};
+		406D75E2224EB2C900C583B9 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				406D75E3224EB36900C583B9 /* HierarchyView.swift */,
+				406D75E5224EB37600C583B9 /* ToggleToolBarView.swift */,
+			);
+			path = views;
 			sourceTree = "<group>";
 		};
 		409EBBF722286900008BC5E7 /* toolbars */ = {
 			isa = PBXGroup;
 			children = (
-				409EBBF822286954008BC5E7 /* ToolBarShapeSelector.swift */,
-				409EBBFD22287D6B008BC5E7 /* ToolBarRobotParts.swift */,
-				4095BD0E22316BC1003CFFCA /* ToolBarShapeEditor.swift */,
+				406D75E7224EBE9600C583B9 /* MovementToolBar.swift */,
+				406D75E9224EC10100C583B9 /* ShapeSelectorToolBar.swift */,
 			);
 			path = toolbars;
 			sourceTree = "<group>";
@@ -123,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				409EBBFB22287744008BC5E7 /* ShapeManager.swift */,
+				406D75DE224EAE1700C583B9 /* ToolBarManager.swift */,
 			);
 			path = managers;
 			sourceTree = "<group>";
@@ -258,11 +275,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				409EBBF922286954008BC5E7 /* ToolBarShapeSelector.swift in Sources */,
-				409EBBFE22287D6B008BC5E7 /* ToolBarRobotParts.swift in Sources */,
+				406D75E1224EB27000C583B9 /* Robot.swift in Sources */,
 				409EBBFC22287744008BC5E7 /* ShapeManager.swift in Sources */,
+				406D75E4224EB36900C583B9 /* HierarchyView.swift in Sources */,
+				406D75E6224EB37600C583B9 /* ToggleToolBarView.swift in Sources */,
 				1AACAF0D220DF05B00DB2560 /* StudioViewController.swift in Sources */,
-				4095BD0F22316BC1003CFFCA /* ToolBarShapeEditor.swift in Sources */,
+				406D75EA224EC10100C583B9 /* ShapeSelectorToolBar.swift in Sources */,
+				406D75DF224EAE1700C583B9 /* ToolBarManager.swift in Sources */,
+				406D75E8224EBE9600C583B9 /* MovementToolBar.swift in Sources */,
 				1AACAF09220DF05B00DB2560 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

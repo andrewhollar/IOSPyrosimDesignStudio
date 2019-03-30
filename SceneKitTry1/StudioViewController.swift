@@ -12,17 +12,29 @@ import SceneKit
 
 class StudioViewController: UIViewController {
     
-    //var cameraNode: SCNNode = SCNNode()
-    
     var shapeManager: ShapeManager?
     func getShapeManager() -> ShapeManager{
         return shapeManager!
     }
-    var toolBarShapeSelector: ToolBarShapeSelector?
-    var toolBarShapeEditor: ToolBarShapeEditor?
-    var toolBarRobotParts: ToolBarRobotParts?
-    func getToolBarRobotParts() -> ToolBarRobotParts{
-        return toolBarRobotParts!
+    
+    var toolBarManager: ToolBarManager?
+    func getToolBarManager() -> ToolBarManager{
+        return toolBarManager!
+    }
+    
+    var hierarchyView: HierarchyView?
+    func getHierarchyView() -> HierarchyView{
+        return hierarchyView!
+    }
+    
+    var toggleToolBarView: ToggleToolBarView?
+    func getToggleToolBarView() -> ToggleToolBarView{
+        return toggleToolBarView!
+    }
+    
+    var robot = Robot()
+    func getRobot() -> Robot{
+        return robot
     }
     
     var currentShape: SCNNode?
@@ -33,6 +45,7 @@ class StudioViewController: UIViewController {
         currentShape?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0.9,blue:0.9,alpha:1)
         currentShape = node
         node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.7,green:0.5,blue:0.3,alpha:1)
+        hierarchyView!.update()
     }
     
     // Geometry
@@ -49,6 +62,18 @@ class StudioViewController: UIViewController {
         // create a new scene
         let scene = SCNScene()
 
+        //create classes
+        shapeManager = ShapeManager(controller: self)
+        toolBarManager = ToolBarManager(controller: self)
+        toolBarManager!.addToolBar(name: "shapeSelector", toolbar: ShapeSelectorToolBar(controller: self))
+        toolBarManager!.addToolBar(name: "movement", toolbar: MovementToolBar(controller: self))
+        toggleToolBarView = ToggleToolBarView(controller: self)
+        hierarchyView = HierarchyView(controller: self)
+        view.addSubview(toggleToolBarView!)
+        view.addSubview(hierarchyView!)
+        
+        
+        
         // create camera
         var cameraNode: SCNNode = SCNNode()
         cameraNode.camera = SCNCamera()
@@ -74,18 +99,6 @@ class StudioViewController: UIViewController {
         omniLightNode.position = SCNVector3Make(0, 50, 50)
         scene.rootNode.addChildNode(omniLightNode)
         
-        /*
-        let boxGeometry = SCNBox(width: 10.0, height: 10.0, length: 10.0, chamferRadius: 1.0)
-        let boxNode = SCNNode(geometry: boxGeometry)
-        let boxMaterial = SCNMaterial()
-        boxMaterial.diffuse.contents = UIColor.white
-        boxMaterial.transparency = 0.75
-        boxGeometry.materials = [boxMaterial]
-        scene.rootNode.addChildNode(boxNode)
-        
-        geometryNode.addChildNode(boxNode)
- 
-        */
         let xGeom = SCNBox(width: 0.1, height: 10, length: 0.1, chamferRadius: 0.1)
         xGeom.firstMaterial?.diffuse.contents  = UIColor(red: 150.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         let xNode = SCNNode(geometry: xGeom)
@@ -108,8 +121,9 @@ class StudioViewController: UIViewController {
         zNode.rotation = SCNVector4(x: 1, y: 0, z: 0, w: Float(Double.pi / 2))
         
         axesNode.addChildNode(zNode)
-
+        
         scene.rootNode.addChildNode(axesNode)
+        
         //scene.rootNode.addChildNode(geometryNode)
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture(sender:)))
 
@@ -131,13 +145,9 @@ class StudioViewController: UIViewController {
         scnView.addGestureRecognizer(tapGesture)
         scnView.addGestureRecognizer(panGesture)
         
-        toolBarRobotParts = ToolBarRobotParts(controller: self)
-        shapeManager = ShapeManager(controller: self)
-        toolBarShapeSelector = ToolBarShapeSelector(controller: self)
-        toolBarShapeEditor = ToolBarShapeEditor(controller: self)
         
         let segmentedControl = UISegmentedControl(items: ["Default", "Top", "Left"])
-        segmentedControl.backgroundColor = UIColor.white.withAlphaComponent(0)
+        //backgroundColor = UIColor.white.withAlphaComponent(0)
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.addTarget(self, action: #selector(StudioViewController.cameraChanged(_:)), for: .valueChanged)
@@ -184,6 +194,8 @@ class StudioViewController: UIViewController {
         if hitResults.count > 0 {
             // retrieved the first clicked object
             let result = hitResults[0]
+            
+            setCurrentShape(node: result.node)
             
             // get its material
             let material = result.node.geometry!.firstMaterial!
