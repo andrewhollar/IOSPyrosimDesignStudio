@@ -31,6 +31,18 @@ class ShapeManager {
         return sphereNode
     }
     
+    func spawnJoint() -> Joint{
+        print("spawning joint")
+        let scnView = viewController.view as! SCNView
+        let jointGeometry = SCNSphere(radius: 5)
+        let joint = Joint(jointGeometry: jointGeometry)
+        joint.scale.x = 0.1
+        joint.scale.y = 0.1
+        joint.scale.z = 0.1
+        scnView.scene?.rootNode.addChildNode(joint)
+        return joint
+    }
+    
     func removeNode(node: SCNNode){
         node.removeFromParentNode()
     }

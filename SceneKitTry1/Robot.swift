@@ -11,15 +11,12 @@ import UIKit
 import SceneKit
 
 class Robot{
+    
     var shapeNodes = [SCNNode]()
-    var neuronNodes = [SCNNode]()
-    //joints
+    var jointNodes = [Joint]()
+    var sensorNodes = [Sensor]()
     //synapse matrix
-    
-    init(){
-    
-    }
-    
+
     func addShapeNode(node: SCNNode){
         shapeNodes.append(node)
     }
@@ -30,22 +27,51 @@ class Robot{
         }
     }
     
-    func addNeuronNode(node: SCNNode){
-        neuronNodes.append(node)
+    func addJointNode(joint: Joint){
+        jointNodes.append(joint)
     }
     
-    func removeNeuronNode(node: SCNNode){
-        if let index = neuronNodes.index(of:node) {
-            neuronNodes.remove(at: index)
+    func removeJointNode(joint: Joint){
+        if let index = jointNodes.index(of:joint) {
+            jointNodes.remove(at: index)
         }
     }
     
-    func getNeuronNodes() -> [SCNNode]{
-        return neuronNodes
+    func getJointNodes() -> [Joint]{
+        return jointNodes
     }
     
     func getShapeNodes() -> [SCNNode]{
         return shapeNodes
     }
     
+    
+}
+
+class Joint: SCNNode {
+    var from: SCNNode?
+    var to: SCNNode?
+    var direction: vector_double3
+    
+
+    init(jointGeometry: SCNGeometry) {
+        self.direction = vector_double3(1,1,1)
+        super.init()
+        geometry = jointGeometry
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
+class Sensor: SCNNode {
+    override init() {
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
