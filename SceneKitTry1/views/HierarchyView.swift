@@ -10,21 +10,36 @@ import Foundation
 import UIKit
 import SceneKit
 
-class HierarchyView: UIScrollView{
+class HierarchyView: UIView{
     var viewController: StudioViewController
     var robot: Robot
+    var jointScroll: UIScrollView
+    var shapeScroll: UIScrollView
     
     init(controller: StudioViewController){
         self.viewController = controller
         self.robot = controller.getRobot()
-        let toolbar = CGRect(x:0,y:33,width:77,height:300)
+        
+        let shapeFrame = CGRect(x:0,y:33,width:77,height:150)
+        shapeScroll = UIScrollView(frame: shapeFrame)
+        
+        let neuronFrame = CGRect(x:0,y:183,width:77,height:150)
+        jointScroll = UIScrollView(frame: neuronFrame)
+        
+        let toolbar = CGRect(x:0,y:33,width:77,height:350)
         super.init(frame: toolbar)
         backgroundColor = UIColor.darkGray
         
         let contentWidth = bounds.width
         let contentHeight = bounds.height * 5
-        contentSize = CGSize(width: contentWidth, height: contentHeight)
-    
+        shapeScroll.contentSize = CGSize(width: contentWidth, height: contentHeight)
+        shapeScroll.layer.borderWidth = 2
+        shapeScroll.layer.borderColor = UIColor.black.cgColor
+        jointScroll.contentSize = CGSize(width: contentWidth, height: contentHeight)
+        jointScroll.layer.borderWidth = 2
+        jointScroll.layer.borderColor = UIColor.black.cgColor
+        addSubview(shapeScroll)
+        addSubview(jointScroll)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,7 +47,8 @@ class HierarchyView: UIScrollView{
     }
     
     func update(){
-        for view in subviews{
+        //update Shapes
+        for view in shapeScroll.subviews{
             view.removeFromSuperview()
         }
         var i = 0;
@@ -41,7 +57,21 @@ class HierarchyView: UIScrollView{
             selectPartButton.backgroundColor = node.geometry?.firstMaterial?.diffuse.contents as! UIColor
             selectPartButton.setTitle("O\(i)", for: .normal)
             selectPartButton.addTarget(self, action: #selector(setCurrentShape), for: .primaryActionTriggered)
-            addSubview(selectPartButton)
+            shapeScroll.addSubview(selectPartButton)
+            i+=1
+        }
+        
+        //update Joints
+        for view in jointScroll.subviews{
+            view.removeFromSuperview()
+        }
+        i = 0;
+        for node in robot.getJointNodes(){
+            let selectPartButton = UIButton(frame: CGRect(x: 15, y: (i*30)+15, width: 25, height: 25))
+            selectPartButton.backgroundColor = node.geometry?.firstMaterial?.diffuse.contents as! UIColor
+            selectPartButton.setTitle("J\(i)", for: .normal)
+            selectPartButton.addTarget(self, action: #selector(setCurrentShape), for: .primaryActionTriggered)
+            jointScroll.addSubview(selectPartButton)
             i+=1
         }
         
@@ -54,6 +84,8 @@ class HierarchyView: UIScrollView{
         let index = Int(title.dropFirst())!
         if(objectType == "O"){
             viewController.setCurrentShape(node: robot.getShapeNodes()[index])
+        }else if(objectType == "J"){
+            viewController.setCurrentShape(node: robot.getJointNodes()[index])
         }
         update()
     }
