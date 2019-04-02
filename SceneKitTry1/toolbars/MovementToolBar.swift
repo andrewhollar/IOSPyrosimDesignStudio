@@ -59,22 +59,46 @@ class MovementToolBar : UIView{
     }
     
     @objc
-    func plusX(){ viewController.getCurrentShape()!.position.x += 1 }
+    func plusX(){
+        if(viewController.getCurrentShape() != nil){
+            viewController.getCurrentShape()!.position.x += 1
+        }
+    }
     
     @objc
-    func minusX(){ viewController.getCurrentShape()!.position.x -= 1 }
+    func minusX(){
+        if(viewController.getCurrentShape() != nil){
+            viewController.getCurrentShape()!.position.x -= 1
+        }
+    }
     
     @objc
-    func plusY(){ viewController.getCurrentShape()!.position.y += 1 }
+    func plusY(){
+        if(viewController.getCurrentShape() != nil){
+        viewController.getCurrentShape()!.position.y += 1
+        }
+    }
     
     @objc
-    func minusY(){ viewController.getCurrentShape()!.position.y -= 1 }
+    func minusY(){
+        if(viewController.getCurrentShape() != nil){
+            viewController.getCurrentShape()!.position.y -= 1
+        }
+    }
     
     @objc
-    func plusZ(){ viewController.getCurrentShape()!.position.z += 1 }
+    func plusZ(){
+        if(viewController.getCurrentShape() != nil){
+            viewController.getCurrentShape()!.position.z += 1
+        }
+    }
     
     @objc
-    func minusZ(){ viewController.getCurrentShape()!.position.z -= 1 }
+    func minusZ(){
+        if(viewController.getCurrentShape() != nil){
+            viewController.getCurrentShape()!.position.z -= 1
+        }
+    }
     
     
 }
