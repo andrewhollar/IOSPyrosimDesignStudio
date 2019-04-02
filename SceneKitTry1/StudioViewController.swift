@@ -129,7 +129,7 @@ class StudioViewController: UIViewController {
 
         // retrieve the SCNView
         let scnView = self.view as! SCNView
-        scnView.allowsCameraControl = true
+        scnView.allowsCameraControl = false
         
         // set the scene to the view
         scnView.scene = scene

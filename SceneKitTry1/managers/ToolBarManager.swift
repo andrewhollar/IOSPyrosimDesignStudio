@@ -28,8 +28,12 @@ class ToolBarManager {
         if(currentToolBar != nil){
             currentToolBar!.removeFromSuperview()
         }
-        currentToolBar = toolbar
-        viewController.view.addSubview(toolbar)
+        if(currentToolBar != toolbar){
+            currentToolBar = toolbar
+            viewController.view.addSubview(toolbar)
+        }else{
+            currentToolBar = nil;
+        }
     }
     
     func setCurrent(name: String){
