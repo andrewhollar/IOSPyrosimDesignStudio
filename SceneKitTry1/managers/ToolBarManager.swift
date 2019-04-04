@@ -13,10 +13,15 @@ import SceneKit
 class ToolBarManager {
 
     var nameToToolBar = [String:UIView]()
+    func getNameToToolBar() -> [String:UIView]{
+        return nameToToolBar
+    }
     var currentToolBar: UIView?
     var viewController: StudioViewController
+    var robot: Robot
     
     init(controller: StudioViewController){
+        self.robot = controller.getRobot()
         self.viewController = controller
     }
     
@@ -28,8 +33,12 @@ class ToolBarManager {
         if(currentToolBar != nil){
             currentToolBar!.removeFromSuperview()
         }
-        currentToolBar = toolbar
-        viewController.view.addSubview(toolbar)
+        if(currentToolBar != toolbar){
+            currentToolBar = toolbar
+            viewController.view.addSubview(toolbar)
+        }else{
+            currentToolBar = nil;
+        }
     }
     
     func setCurrent(name: String){
@@ -38,8 +47,8 @@ class ToolBarManager {
         }
     }
     
-    func current() -> UIView{
-        return currentToolBar!
+    func current() -> UIView?{
+        return currentToolBar
     }
     
 }

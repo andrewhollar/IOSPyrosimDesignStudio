@@ -12,11 +12,16 @@ import SceneKit
 
 class ToggleToolBarView: UIView{
     
+    var BORDER_WIDTH = 5
     var viewController: StudioViewController
     var toolBarManager: ToolBarManager
     var shapeButton: UIButton
     var moveButton: UIButton
+
     var rotationButton: UIButton
+    var jointButton: UIButton
+    var buttons = [UIButton]()
+
     
     init(controller: StudioViewController){
         self.viewController = controller
@@ -24,7 +29,8 @@ class ToggleToolBarView: UIView{
         self.shapeButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50)) //sphere button
         self.moveButton = UIButton(frame: CGRect(x: 100, y: 0, width: 100, height: 50)) //rectangle button
         self.rotationButton = UIButton(frame: CGRect(x: 300, y:0, width: 100, height: 50))
-        
+        self.jointButton = UIButton(frame: CGRect(x: 200, y: 0, width: 100, height: 50)) //rectangle button
+
         let toolbar = CGRect(x:0,y:800,width:800,height:100)
         super.init(frame: toolbar)
          backgroundColor = UIColor.darkGray
@@ -32,15 +38,24 @@ class ToggleToolBarView: UIView{
         shapeButton.addTarget(self, action: #selector(toggleShape), for: .primaryActionTriggered)
         shapeButton.setImage(UIImage(named: "ShapesButton"), for: UIControl.State.normal)
         addSubview(shapeButton)
+        buttons.append(shapeButton)
         
         moveButton.addTarget(self, action: #selector(toggleMovement), for: .primaryActionTriggered)
         moveButton.setImage(UIImage(named: "moveButton"), for: UIControl.State.normal)
         addSubview(moveButton)
+        buttons.append(moveButton)
+        
+        jointButton.addTarget(self, action: #selector(toggleJoint), for: .primaryActionTriggered)
+        jointButton.setImage(UIImage(named: "moveButton"), for: UIControl.State.normal)
+        addSubview(jointButton)
+        buttons.append(jointButton)
         
         rotationButton.addTarget(self, action: #selector(toggleRotation), for: .primaryActionTriggered)
         rotationButton.setImage(UIImage(named: "rotationButton"), for: UIControl.State.normal)
         addSubview(rotationButton)
-        
+        buttons.append(rotationButton)
+
+      
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,17 +63,42 @@ class ToggleToolBarView: UIView{
     }
     
     @objc
-    func toggleShape() {
+    func toggleShape(sender: UIButton) {
+        toggleBorder(pressedButton: sender)
         toolBarManager.setCurrent(name: "shapeSelector")
     }
     
     @objc
-    func toggleMovement() {
+    func toggleMovement(sender: UIButton) {
+        toggleBorder(pressedButton: sender)
         toolBarManager.setCurrent(name: "movement")
     }
     
     @objc
-    func toggleRotation() {
+    func toggleRotation(sender: UIButton) {
+        toggleBorder(pressedButton: sender)  
         toolBarManager.setCurrent(name: "rotation")
+    }
+    func toggleJoint(sender: UIButton) {
+        toggleBorder(pressedButton: sender)
+        toolBarManager.setCurrent(name: "joint")
+    }
+  
+    func toggleBorder(pressedButton: UIButton){
+        //reset all other buttons
+        for button in buttons{
+            if(button != pressedButton){
+                button.layer.borderWidth = 0
+                button.layer.borderColor = UIColor.init(red:0,green:0,blue:0,alpha:0).cgColor
+            }
+        }
+        //toggle pressed button
+        if(Int(pressedButton.layer.borderWidth) == BORDER_WIDTH){
+            pressedButton.layer.borderWidth = 0
+            pressedButton.layer.borderColor = UIColor.init(red:0,green:0,blue:0,alpha:0).cgColor
+        }else{
+            pressedButton.layer.borderWidth = CGFloat(BORDER_WIDTH)
+            pressedButton.layer.borderColor = UIColor.init(red:1,green:1,blue:1,alpha:1).cgColor
+        }
     }
 }

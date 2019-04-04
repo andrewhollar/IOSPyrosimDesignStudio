@@ -41,11 +41,56 @@ class StudioViewController: UIViewController {
     func getCurrentShape() -> SCNNode?{
         return currentShape
     }
+    
+    var shapesTransparent = false;
+    func areShapesTransparent() -> Bool{
+        return shapesTransparent
+    }
+    func setShapesTransparent(b:Bool){
+        shapesTransparent = b
+    }
     func setCurrentShape(node: SCNNode){
-        currentShape?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0.9,blue:0.9,alpha:1)
+        
+        if(node.isKind(of: Joint.self)){
+            setShapesTransparent(b: true)
+        }else{
+            setShapesTransparent(b: false)
+        }
+        
         currentShape = node
-        node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.7,green:0.5,blue:0.3,alpha:1)
+        updateShapeColors()
         hierarchyView!.update()
+        
+    }
+    
+    func setColor(node: SCNNode){
+        let currentShape = getCurrentShape()
+        if(areShapesTransparent()){
+            if(currentShape != nil && currentShape! == node){
+                node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0.6,blue:0.3,alpha:1)
+            }else if(node.isKind(of: Joint.self)){
+                node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0,blue:0,alpha:1)
+            }else{
+                node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0.9,blue:0.9,alpha:0.7)
+            }
+        }else{
+            if(currentShape != nil && currentShape! == node){
+                node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0.6,blue:0.3,alpha:1)
+            }else if(node.isKind(of: Joint.self)){
+                node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0,blue:0,alpha:1)
+            }else{
+                node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0.9,blue:0.9,alpha:1)
+            }
+        }
+    }
+
+    func updateShapeColors(){
+        for node in robot.getShapeNodes(){
+            setColor(node: node)
+        }
+        for joint in robot.getJointNodes(){
+            setColor(node: joint)
+        }
     }
     
     // Geometry
@@ -68,6 +113,8 @@ class StudioViewController: UIViewController {
         toolBarManager!.addToolBar(name: "shapeSelector", toolbar: ShapeSelectorToolBar(controller: self))
         toolBarManager!.addToolBar(name: "movement", toolbar: MovementToolBar(controller: self))
         toolBarManager!.addToolBar(name: "rotation", toolbar: RotationToolBar(controller: self))
+        toolBarManager!.addToolBar(name: "joint", toolbar: JointToolBar(controller: self))
+
         toggleToolBarView = ToggleToolBarView(controller: self)
         hierarchyView = HierarchyView(controller: self)
         view.addSubview(toggleToolBarView!)
@@ -167,6 +214,7 @@ class StudioViewController: UIViewController {
     func log(message:String){
         print(message)
     }
+    
     
     
     @objc
