@@ -11,6 +11,8 @@ import QuartzCore
 import SceneKit
 
 class StudioViewController: UIViewController {
+
+    var pinchGesture = UIPinchGestureRecognizer()
     
     var shapeManager: ShapeManager?
     func getShapeManager() -> ShapeManager{
@@ -55,6 +57,7 @@ class StudioViewController: UIViewController {
     
     // Gestures
     var currentAngle: Float = 0.0
+    let segmentedControl = UISegmentedControl(items: ["Default", "Top", "Left"])
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,6 +129,8 @@ class StudioViewController: UIViewController {
         
         //scene.rootNode.addChildNode(geometryNode)
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture(sender:)))
+        
+        //self.pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchRecognized(pinch:)))
 
         // retrieve the SCNView
         let scnView = self.view as! SCNView
@@ -144,9 +149,10 @@ class StudioViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
         scnView.addGestureRecognizer(panGesture)
+        scnView.addGestureRecognizer(pinchGesture)
         
         
-        let segmentedControl = UISegmentedControl(items: ["Default", "Top", "Left"])
+        //let segmentedControl = UISegmentedControl(items: ["Default", "Top", "Left"])
         //backgroundColor = UIColor.white.withAlphaComponent(0)
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
