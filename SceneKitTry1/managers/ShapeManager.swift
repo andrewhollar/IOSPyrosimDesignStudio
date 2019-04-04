@@ -50,8 +50,9 @@ class ShapeManager {
     func spawnRect() -> SCNNode{
         print("spawning rectangle")
         let scnView = viewController.view as! SCNView
-        let rectangleGeometry = SCNBox(width: 5, height: 5, length: 5, chamferRadius: 0)
+        let rectangleGeometry = SCNBox(width: 3, height: 5, length: 3, chamferRadius: 0)
         let rectangleNode = SCNNode(geometry: rectangleGeometry)
+        rectangleNode.eulerAngles = SCNVector3(0,0,0)
         scnView.scene?.rootNode.addChildNode(rectangleNode)
         return rectangleNode
     }
