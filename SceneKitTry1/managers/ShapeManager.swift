@@ -21,7 +21,7 @@ class ShapeManager {
     func spawnCircle() -> SCNNode{
         print("spawning circle")
         let scnView = viewController.view as! SCNView
-        let sphereGeometry = SCNSphere(radius: 5)
+        let sphereGeometry = SCNSphere(radius: 1)
         let r = 0.9
         let g = 0.9
         let b = 0.9
@@ -36,9 +36,9 @@ class ShapeManager {
         let scnView = viewController.view as! SCNView
         let jointGeometry = SCNSphere(radius: 5)
         let joint = Joint(jointGeometry: jointGeometry)
-        joint.scale.x = 0.1
-        joint.scale.y = 0.1
-        joint.scale.z = 0.1
+        joint.scale.x = 0.15
+        joint.scale.y = 0.05
+        joint.scale.z = 0.05
         scnView.scene?.rootNode.addChildNode(joint)
         return joint
     }
@@ -50,7 +50,7 @@ class ShapeManager {
     func spawnRect() -> SCNNode{
         print("spawning rectangle")
         let scnView = viewController.view as! SCNView
-        let rectangleGeometry = SCNBox(width: 3, height: 5, length: 3, chamferRadius: 0)
+        let rectangleGeometry = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 0)
         let rectangleNode = SCNNode(geometry: rectangleGeometry)
         rectangleNode.eulerAngles = SCNVector3(0,0,0)
         scnView.scene?.rootNode.addChildNode(rectangleNode)

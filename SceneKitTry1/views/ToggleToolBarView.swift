@@ -79,6 +79,7 @@ class ToggleToolBarView: UIView{
         toggleBorder(pressedButton: sender)  
         toolBarManager.setCurrent(name: "rotation")
     }
+    @objc
     func toggleJoint(sender: UIButton) {
         toggleBorder(pressedButton: sender)
         toolBarManager.setCurrent(name: "joint")
