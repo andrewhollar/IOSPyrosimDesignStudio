@@ -16,12 +16,14 @@ class ToggleToolBarView: UIView{
     var toolBarManager: ToolBarManager
     var shapeButton: UIButton
     var moveButton: UIButton
+    var rotationButton: UIButton
     
     init(controller: StudioViewController){
         self.viewController = controller
         self.toolBarManager = controller.getToolBarManager()
         self.shapeButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50)) //sphere button
         self.moveButton = UIButton(frame: CGRect(x: 100, y: 0, width: 100, height: 50)) //rectangle button
+        self.rotationButton = UIButton(frame: CGRect(x: 300, y:0, width: 100, height: 50))
         
         let toolbar = CGRect(x:0,y:800,width:800,height:100)
         super.init(frame: toolbar)
@@ -34,6 +36,10 @@ class ToggleToolBarView: UIView{
         moveButton.addTarget(self, action: #selector(toggleMovement), for: .primaryActionTriggered)
         moveButton.setImage(UIImage(named: "moveButton"), for: UIControl.State.normal)
         addSubview(moveButton)
+        
+        rotationButton.addTarget(self, action: #selector(toggleRotation), for: .primaryActionTriggered)
+        rotationButton.setImage(UIImage(named: "rotationButton"), for: UIControl.State.normal)
+        addSubview(rotationButton)
         
     }
     
@@ -49,5 +55,10 @@ class ToggleToolBarView: UIView{
     @objc
     func toggleMovement() {
         toolBarManager.setCurrent(name: "movement")
+    }
+    
+    @objc
+    func toggleRotation() {
+        toolBarManager.setCurrent(name: "rotation")
     }
 }

@@ -67,6 +67,7 @@ class StudioViewController: UIViewController {
         toolBarManager = ToolBarManager(controller: self)
         toolBarManager!.addToolBar(name: "shapeSelector", toolbar: ShapeSelectorToolBar(controller: self))
         toolBarManager!.addToolBar(name: "movement", toolbar: MovementToolBar(controller: self))
+        toolBarManager!.addToolBar(name: "rotation", toolbar: RotationToolBar(controller: self))
         toggleToolBarView = ToggleToolBarView(controller: self)
         hierarchyView = HierarchyView(controller: self)
         view.addSubview(toggleToolBarView!)
@@ -129,7 +130,7 @@ class StudioViewController: UIViewController {
 
         // retrieve the SCNView
         let scnView = self.view as! SCNView
-        scnView.allowsCameraControl = true
+        scnView.allowsCameraControl = false
         
         // set the scene to the view
         scnView.scene = scene
