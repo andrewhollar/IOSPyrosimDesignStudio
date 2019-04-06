@@ -32,10 +32,9 @@ class JointToolBar: UIView{
     }
     
     func populateWithButtons(){
-        
         let jointButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50)) //joint button
         jointButton.addTarget(self, action: #selector(addJoint), for: .primaryActionTriggered)
-        jointButton.setImage(UIImage(named: "cylinderButton"), for: UIControl.State.normal)
+        jointButton.setImage(UIImage(named: "hingeJointButton"), for: UIControl.State.normal)
         addSubview(jointButton)
     }
     
