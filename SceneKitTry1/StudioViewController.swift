@@ -206,7 +206,6 @@ class StudioViewController: UIViewController {
         scene.rootNode.addChildNode(axesNode)
         
         //scene.rootNode.addChildNode(geometryNode)
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
 
         // retrieve the SCNView
         let scnView = self.view as! SCNView
@@ -224,7 +223,6 @@ class StudioViewController: UIViewController {
         // add a tap gesture recognizer
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
-        scnView.addGestureRecognizer(panGesture)
         
         
         let segmentedControl = UISegmentedControl(items: ["Default", "Top", "Left"])
@@ -279,33 +277,60 @@ class StudioViewController: UIViewController {
     
     
     var movedObject:SCNNode?
-    @objc func handlePan(_ recognizer: UIPanGestureRecognizer) {
+    var direction = ""
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let scnView = self.view as! SCNView
-        if recognizer.state == .began {
-            let tapPoint: CGPoint = recognizer.location(in: scnView)
-            let result = scnView.hitTest(tapPoint, options: nil)
-            if result.count == 0 {
-                return
-            }
-            let p = recognizer.location(in: scnView)
+        print("new touch")
+        if let touch = touches.first {
+//            let tapPoint: CGPoint = touch.location(in: scnView)
+//            let result = scnView.hitTest(tapPoint, options: nil)
+//            if result.count == 0 {
+//                return
+//            }
+            let p = touch.location(in: scnView)
             let hitResults = scnView.hitTest(p, options: [:])
             if hitResults.count > 0{
                 let result = hitResults[0]
                 let node = result.node
                 if dragNodes.contains(node) && currentShape != nil{
+                    scnView.allowsCameraControl = false
+                    if(node == xDrag!){
+                        direction = "x"
+                        xDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 190.0 / 255.0, green: 70.0 / 255.0, blue: 70.0 / 255.0, alpha: 1)
+                    }else if(node == yDrag!){
+                        direction = "y"
+                        yDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 70.0 / 255.0, green: 190.0 / 255.0, blue: 70.0 / 255.0, alpha: 1)
+                        
+                    }else if(node == zDrag!){
+                        direction = "z"
+                        zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 70.0 / 255.0, green: 70.0 / 255.0, blue: 190.0 / 255.0, alpha: 1)
+                    }
                     movedObject = currentShape!
+                    continousUpdate()
                 }
-                movedObject = currentShape!
             }
-        } else if recognizer.state == .changed {
-            
+        }
+    }
+    
+    func continousUpdate(){
+        //
+//        let scnView = self.view as! SCNView
+//        while movedObject != nil{
+//
+//        }
+    }
+    
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let scnView = self.view as! SCNView
+        for touch in touches {
             if (movedObject != nil) {
-                
                 //Normalized-depth coordinate matching the plane I want
                 let projectedOrigin = scnView.projectPoint((movedObject?.position)!)
                 
                 //Location of the finger in the view on a 2D plane
-                let location2D = recognizer.location(in: scnView)
+                let location2D = touch.location(in: scnView)
                 
                 //Location of the finger in a 3D vector
                 let location3D = SCNVector3Make(Float(location2D.x), Float(location2D.y), projectedOrigin.z)
@@ -315,17 +340,44 @@ class StudioViewController: UIViewController {
                 
                 if movedObject?.position != nil {
                     //Only updating Y axis position
-                    let pos = SCNVector3Make((movedObject?.position.x)!, realLocation3D.y, (movedObject?.position.z)!)
-                    movedObject?.position = pos
-                    xDrag!.position = SCNVector3(pos.x + 2,pos.y,pos.z)
-                    yDrag!.position = SCNVector3(pos.x,pos.y + 2,pos.z)
-                    zDrag!.position = SCNVector3(pos.x,pos.y,pos.z + 2)
+                    var pos: SCNVector3?
+                    if(direction == "x"){
+                        pos = SCNVector3Make(realLocation3D.x,(movedObject?.position.y)!, (movedObject?.position.z)!)
+                    }else if(direction == "y"){
+                        pos = SCNVector3Make((movedObject?.position.x)!, realLocation3D.y, (movedObject?.position.z)!)
+                    }else if(direction  == "z"){
+                        pos = SCNVector3Make((movedObject?.position.x)!, (movedObject?.position.y)!, realLocation3D.z)
+                    }
+                    if(pos != nil){
+                        movedObject?.position = pos!
+                        xDrag!.position = SCNVector3(pos!.x + 2,pos!.y,pos!.z)
+                        yDrag!.position = SCNVector3(pos!.x,pos!.y + 2,pos!.z)
+                        zDrag!.position = SCNVector3(pos!.x,pos!.y,pos!.z + 2)
+                    }
                 }
                 
             }
-        } else if recognizer.state == .ended {
-            movedObject = nil
         }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let scnView = self.view as! SCNView
+        movedObject = nil
+        xDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 150.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+        yDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 150.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+        zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 150.0 / 255.0, alpha: 1)
+        direction = ""
+        scnView.allowsCameraControl = true
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let scnView = self.view as! SCNView
+        movedObject = nil
+        xDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 150.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+        yDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 150.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+        zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 150.0 / 255.0, alpha: 1)
+        direction = ""
+        scnView.allowsCameraControl = true
     }
     
     @objc
