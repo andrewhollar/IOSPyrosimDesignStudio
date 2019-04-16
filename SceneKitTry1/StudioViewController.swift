@@ -50,8 +50,22 @@ class StudioViewController: UIViewController {
         return zDrag
     }
     
+    var xResize: SCNNode?
+    func getXResize() -> SCNNode?{
+        return xResize
+    }
+    var yResize: SCNNode?
+    func getYResize() -> SCNNode?{
+        return yResize
+    }
+    var zResize: SCNNode?
+    func getZResize() -> SCNNode?{
+        return zResize
+    }
+    
     var utilityNodes = [SCNNode]()
     var dragNodes = [SCNNode]()
+    var resizeNodes = [SCNNode]()
     
     var currentShape: SCNNode?
     func getCurrentShape() -> SCNNode?{
@@ -74,7 +88,6 @@ class StudioViewController: UIViewController {
         xDrag?.position.y = node.position.y
         xDrag?.position.z = node.position.z
         
-        
         yDrag?.position.x = node.position.x
         yDrag?.position.y = node.position.y + 2
         yDrag?.position.z = node.position.z
@@ -82,6 +95,22 @@ class StudioViewController: UIViewController {
         zDrag?.position.x = node.position.x
         zDrag?.position.y = node.position.y
         zDrag?.position.z = node.position.z + 2
+        
+        xResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 200.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+        yResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 200.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+        zResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 200.0 / 255.0, alpha: 1)
+        
+        xResize?.position.x = node.position.x + 4
+        xResize?.position.y = node.position.y
+        xResize?.position.z = node.position.z
+        
+        yResize?.position.x = node.position.x
+        yResize?.position.y = node.position.y + 4
+        yResize?.position.z = node.position.z
+        
+        zResize?.position.x = node.position.x
+        zResize?.position.y = node.position.y
+        zResize?.position.z = node.position.z + 4
         
         if(node.isKind(of: Joint.self)){
             setShapesTransparent(b: true)
@@ -265,6 +294,30 @@ class StudioViewController: UIViewController {
         utilityNodes.append(zDrag!)
         dragNodes.append(zDrag!)
         
+        xResize = getShapeManager().spawnCircle()
+        xResize!.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0,green:0,blue:0,alpha:0)
+        xResize!.scale.x = 0.5
+        xResize!.scale.y = 0.5
+        xResize!.scale.z = 0.5
+        utilityNodes.append(xResize!)
+        resizeNodes.append(xResize!)
+        
+        yResize = getShapeManager().spawnCircle()
+        yResize!.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0,green:0,blue:0,alpha:0)
+        yResize!.scale.x = 0.5
+        yResize!.scale.y = 0.5
+        yResize!.scale.z = 0.5
+        utilityNodes.append(yResize!)
+        resizeNodes.append(yResize!)
+        
+        zResize = getShapeManager().spawnCircle()
+        zResize!.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0,green:0,blue:0,alpha:0)
+        zResize!.scale.x = 0.5
+        zResize!.scale.y = 0.5
+        zResize!.scale.z = 0.5
+        utilityNodes.append(zResize!)
+        resizeNodes.append(zResize!)
+        
         log(message: "success")
         
         
@@ -275,9 +328,11 @@ class StudioViewController: UIViewController {
     }
     
     
-    
+    let resizeConstant: Float = 0.05
     var movedObject:SCNNode?
+    var resizedObject:SCNNode?
     var direction = ""
+    var startTouch: CGPoint?
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let scnView = self.view as! SCNView
@@ -306,24 +361,51 @@ class StudioViewController: UIViewController {
                         direction = "z"
                         zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 70.0 / 255.0, green: 70.0 / 255.0, blue: 190.0 / 255.0, alpha: 1)
                     }
+                    xResize?.removeFromParentNode()
+                    yResize?.removeFromParentNode()
+                    zResize?.removeFromParentNode()
+//                    xResize?.isHidden = true
+//                    yResize?.isHidden = true
+//                    zResize?.isHidden = true
                     movedObject = currentShape!
-                    continousUpdate()
+                    //continousUpdate()
                 }
+                else if (resizeNodes.contains(node) && currentShape != nil){
+                    scnView.allowsCameraControl = false
+                    if(node == xResize!){
+                        direction = "x"
+                        xResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 220.0 / 255.0, green: 70.0 / 255.0, blue: 70.0 / 255.0, alpha: 1)
+                    }else if(node == yResize!){
+                        direction = "y"
+                        yResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 70.0 / 255.0, green: 220.0 / 255.0, blue: 70.0 / 255.0, alpha: 1)
+                        
+                    }else if(node == zResize!){
+                        direction = "z"
+                        zResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 70.0 / 255.0, green: 70.0 / 255.0, blue: 220.0 / 255.0, alpha: 1)
+                    }
+                    startTouch = touch.location(in: scnView)
+                    resizedObject = currentShape!
+                    //continousUpdate()
+                }
+                
             }
         }
     }
     
-    func continousUpdate(){
-        //
-//        let scnView = self.view as! SCNView
-//        while movedObject != nil{
+//    func continousUpdate(){
+//        //
+////        let scnView = self.view as! SCNView
+////        while movedObject != nil{
+////
+////        }
+//    }
 //
-//        }
-    }
-    
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let scnView = self.view as! SCNView
+        
+        //CGPoint newLocation = self.view.previous//aTouch locationInView:self.view
+        //CGPoint prevLocation = [aTouch previousLocationInView:self.view];
         for touch in touches {
             if (movedObject != nil) {
                 //Normalized-depth coordinate matching the plane I want
@@ -353,7 +435,68 @@ class StudioViewController: UIViewController {
                         xDrag!.position = SCNVector3(pos!.x + 2,pos!.y,pos!.z)
                         yDrag!.position = SCNVector3(pos!.x,pos!.y + 2,pos!.z)
                         zDrag!.position = SCNVector3(pos!.x,pos!.y,pos!.z + 2)
+                        xResize!.position = SCNVector3(pos!.x + 4,pos!.y,pos!.z)
+                        yResize!.position = SCNVector3(pos!.x,pos!.y + 4,pos!.z)
+                        zResize!.position = SCNVector3(pos!.x,pos!.y,pos!.z + 4)
                     }
+                }
+            }
+            else if (resizedObject != nil) {
+                //Normalized-depth coordinate matching the plane I want
+                let projectedOrigin = scnView.projectPoint((resizedObject?.position)!)
+                
+                //Location of the finger in the view on a 2D plane
+                let location2D = touch.location(in: scnView)
+                
+                //Location of the finger in a 3D vector
+                let location3D = SCNVector3Make(Float(location2D.x), Float(location2D.y), projectedOrigin.z)
+                
+                //Unprojects a point from the 2D pixel coordinate system of the renderer to the 3D world coordinate system of the scene
+                let realLocation3D = scnView.unprojectPoint(location3D)
+                
+                if resizedObject?.position != nil {
+                    //Only updating Y axis position
+                    ////boxNode.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5)
+                    var scale: SCNVector3?
+                    if(direction == "x"){
+                        if (startTouch!.x - touch.location(in: scnView).x < 0) {
+                            scale = SCNVector3(x: (resizedObject?.scale.x)! + resizeConstant, y: (resizedObject?.scale.y)!, z: (resizedObject?.scale.z)!)
+                            xResize!.position = SCNVector3(x: (xResize?.position.x)! + resizeConstant, y: (xResize?.position.y)!, z: (xResize?.position.z)!)
+                        }
+                        else {
+                            scale = SCNVector3(x: (resizedObject?.scale.x)! - resizeConstant, y: (resizedObject?.scale.y)!, z: (resizedObject?.scale.z)!)
+                            xResize!.position = SCNVector3(x: (xResize?.position.x)! - resizeConstant, y: (xResize?.position.y)!, z: (xResize?.position.z)!)
+                        }
+                        startTouch = touch.location(in: scnView)
+                        //pos = SCNVector3Make(realLocation3D.x,(movedObject?.position.y)!, (movedObject?.position.z)!)
+                    }else if(direction == "y"){
+                        if (startTouch!.y - touch.location(in: scnView).y > 0) {
+                            scale = SCNVector3(x: (resizedObject?.scale.x)! , y: (resizedObject?.scale.y)! + resizeConstant, z: (resizedObject?.scale.z)!)
+                            yResize!.position = SCNVector3(x: (yResize?.position.x)!, y: (yResize?.position.y)! + resizeConstant, z: (yResize?.position.z)!)
+                        } else {
+                            scale = SCNVector3(x: (resizedObject?.scale.x)! , y: (resizedObject?.scale.y)! - resizeConstant, z: (resizedObject?.scale.z)!)
+                            yResize!.position = SCNVector3(x: (yResize?.position.x)!, y: (yResize?.position.y)! - resizeConstant, z: (yResize?.position.z)!)
+                        }
+                        //pos = SCNVector3Make((movedObject?.position.x)!, realLocation3D.y, (movedObject?.position.z)!)
+                    }else if(direction  == "z"){
+                        if (startTouch!.x - touch.location(in: scnView).x > 0) {
+                            scale = SCNVector3(x: (resizedObject?.scale.x)! , y: (resizedObject?.scale.y)!, z: (resizedObject?.scale.z)! + resizeConstant)
+                            zResize!.position = SCNVector3(x: (zResize?.position.x)!, y: (zResize?.position.y)!, z: (zResize?.position.z)! + resizeConstant)
+                        }
+                        else {
+                            scale = SCNVector3(x: (resizedObject?.scale.x)! , y: (resizedObject?.scale.y)!, z: (resizedObject?.scale.z)! - resizeConstant)
+                            zResize!.position = SCNVector3(x: (zResize?.position.x)!, y: (zResize?.position.y)!, z: (zResize?.position.z)! - resizeConstant)
+                        }
+                        startTouch = touch.location(in: scnView)
+                        //pos = SCNVector3Make((movedObject?.position.x)!, (movedObject?.position.y)!, realLocation3D.z)
+                    }
+                    if (scale != nil) {
+                        resizedObject?.scale = scale!
+//                        yDrag!.position = SCNVector3(pos!.x,pos!.y + 2,pos!.z)
+//                        zDrag!.position = SCNVector3(pos!.x,pos!.y,pos!.z + 2)
+
+                    }
+
                 }
                 
             }
@@ -366,7 +509,20 @@ class StudioViewController: UIViewController {
         xDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 150.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         yDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 150.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 150.0 / 255.0, alpha: 1)
+        
+        xResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 200.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+        yResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 200.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+        zResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 200.0 / 255.0, alpha: 1)
         direction = ""
+        
+        scnView.scene?.rootNode.addChildNode(xResize!)
+        scnView.scene?.rootNode.addChildNode(yResize!)
+        scnView.scene?.rootNode.addChildNode(zResize!)
+
+//        xResize?.isHidden = false
+//        yResize?.isHidden = false
+//        zResize?.isHidden = false
+        
         scnView.allowsCameraControl = true
     }
     
@@ -376,6 +532,18 @@ class StudioViewController: UIViewController {
         xDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 150.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         yDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 150.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 150.0 / 255.0, alpha: 1)
+        
+        xResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 200.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+        yResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 200.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+        zResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 200.0 / 255.0, alpha: 1)
+        
+        scnView.scene?.rootNode.addChildNode(xResize!)
+        scnView.scene?.rootNode.addChildNode(yResize!)
+        scnView.scene?.rootNode.addChildNode(zResize!)
+//        xResize?.isHidden = false
+//        yResize?.isHidden = false
+//        zResize?.isHidden = false
+        
         direction = ""
         scnView.allowsCameraControl = true
     }
