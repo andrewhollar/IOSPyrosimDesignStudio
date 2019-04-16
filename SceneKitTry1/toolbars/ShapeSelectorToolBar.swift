@@ -16,6 +16,12 @@ class ShapeSelectorToolBar: UIView{
     var shapeManager: ShapeManager
     var robot: Robot
     
+    var sphereButton: UIButton
+    var cylinderButton: UIButton
+    var rectButton: UIButton
+    var jointButton: UIButton
+    //var sensorsButton: UIButton
+    
     var buttonSize = 75
 
     init(controller: StudioViewController){
@@ -24,33 +30,71 @@ class ShapeSelectorToolBar: UIView{
         self.robot = controller.getRobot()
         
         let toolbar = CGRect(x:0,y:700,width:800,height:buttonSize)
+        //backgroundColor = UIColor.init(red:0.7,green:0.7,blue:0.7, alpha: 1)
+        sphereButton = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)) //sphere button
+        cylinderButton = UIButton(frame: CGRect(x: buttonSize, y: 0, width: buttonSize, height: buttonSize)) //cylinder button
+        rectButton = UIButton(frame: CGRect(x: 2*buttonSize, y: 0, width: buttonSize, height: buttonSize)) //rectangle button
+        jointButton = UIButton(frame: CGRect(x: 3*buttonSize, y: 0, width: buttonSize, height: buttonSize)) //rectangle button
+
+        
         super.init(frame: toolbar)
-        backgroundColor = UIColor.init(red:0.7,green:0.7,blue:0.7, alpha: 1)
+        viewController.view.addSubview(self)
+//        sphereButton.translatesAutoresizingMaskIntoConstraints = false
+//        viewController.view.addSubview(sphereButton)
+//        viewController.view.addSubview(cylinderButton)
+//        viewController.view.addSubview(rectButton)
+//        viewController.view.addSubview(jointButton)
+//
         populateWithButtons()
+        //addButtonsToView()
+
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+//    func addButtonsToView() {
+//        viewController.view.addSubview(sphereButton)
+//        viewController.view.addSubview(cylinderButton)
+//        viewController.view.addSubview(rectButton)
+//        viewController.view.addSubview(jointButton)
+//
+//
+//    }
+    
     func populateWithButtons(){
         
-        let sphereButton = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)) //sphere button
+        //sphereButton = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)) //sphere button
         sphereButton.addTarget(self, action: #selector(addSphere), for: .primaryActionTriggered)
         sphereButton.setImage(UIImage(named: "sphereButton"), for: UIControl.State.normal)
         addSubview(sphereButton)
+
+//        sphereButton.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor, constant: -150).isActive = true
+//        sphereButton.widthAnchor.constraint(equalToConstant: CGFloat(buttonSize)).isActive = true
+//        sphereButton.heightAnchor.constraint(equalToConstant: CGFloat(buttonSize)).isActive = true
+//        sphereButton.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor, constant: 0).isActive = true
+    
+        sphereButton.translatesAutoresizingMaskIntoConstraints = false
+        //viewController.view.addSubview(sphereButton)
+        //addSubview(sphereButton)
+        sphereButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        //sphereButton.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor, constant: -300).isActive = true
+        //shapeButton.leftAnchor.constraint(equalTo: controller.view.leftAnchor, constant: ).isActive = true
+        sphereButton.heightAnchor.constraint(equalToConstant: CGFloat(buttonSize)).isActive = true
+        sphereButton.widthAnchor.constraint(equalToConstant: CGFloat(buttonSize)).isActive = true
         
-        let cylinderButton = UIButton(frame: CGRect(x: buttonSize, y: 0, width: buttonSize, height: buttonSize)) //cylinder button
+        //cylinderButton = UIButton(frame: CGRect(x: buttonSize, y: 0, width: buttonSize, height: buttonSize)) //cylinder button
         cylinderButton.addTarget(self, action: #selector(addCylinder), for: .primaryActionTriggered)
         cylinderButton.setImage(UIImage(named: "cylinderButton"), for: UIControl.State.normal)
         addSubview(cylinderButton)
         
-        let rectButton = UIButton(frame: CGRect(x: 2*buttonSize, y: 0, width: buttonSize, height: buttonSize)) //rectangle button
+        //rectButton = UIButton(frame: CGRect(x: 2*buttonSize, y: 0, width: buttonSize, height: buttonSize)) //rectangle button
         rectButton.addTarget(self, action: #selector(addRectangle), for: .primaryActionTriggered)
         rectButton.setImage(UIImage(named: "boxButton"), for: UIControl.State.normal)
         addSubview(rectButton)
         
-        let jointButton = UIButton(frame: CGRect(x: 3*buttonSize, y: 0, width: buttonSize, height: buttonSize)) //rectangle button
+        //jointButton = UIButton(frame: CGRect(x: 3*buttonSize, y: 0, width: buttonSize, height: buttonSize)) //rectangle button
         jointButton.addTarget(self, action: #selector(addJoint), for: .primaryActionTriggered)
         jointButton.setImage(UIImage(named: "hingeJointButton"), for: UIControl.State.normal)
         addSubview(jointButton)

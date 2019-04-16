@@ -32,6 +32,10 @@ class RotationToolBar : UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
+    func addButtonsToView() {
+        
+    }
+    
     func populateWithRotationSliders(){
        
         //Counter-clockwise 90deg transformation setup

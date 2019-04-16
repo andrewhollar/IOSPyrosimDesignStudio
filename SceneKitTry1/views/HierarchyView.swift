@@ -19,8 +19,51 @@ class HierarchyView: UIView{
     init(controller: StudioViewController){
         self.viewController = controller
         self.robot = controller.getRobot()
+        shapeScroll = UIScrollView()
+        jointScroll = UIScrollView()
+        let toolbar = CGRect(x:0,y:800,width:100,height:500)
+
+        super.init(frame: toolbar)
         
-        let shapeFrame = CGRect(x:0,y:33,width:77,height:150)
+        let contentWidth = bounds.width
+        let contentHeight = bounds.height * 5
+        shapeScroll.contentSize = CGSize(width: contentWidth, height: contentHeight)
+        shapeScroll.layer.borderWidth = 2
+        shapeScroll.layer.borderColor = UIColor.black.cgColor
+        shapeScroll.layer.backgroundColor = UIColor.yellow.cgColor
+        shapeScroll.translatesAutoresizingMaskIntoConstraints = false
+        //controller.getView.addSubview(shapeScroll)
+        controller.view.addSubview(shapeScroll)
+        shapeScroll.leftAnchor.constraint(equalTo: controller.view.leftAnchor, constant: 0).isActive = true
+        shapeScroll.topAnchor.constraint(equalTo: controller.view.topAnchor, constant: 0).isActive = true
+        shapeScroll.widthAnchor.constraint(equalTo: controller.view.widthAnchor, multiplier: 0.1).isActive = true
+        shapeScroll.heightAnchor.constraint(equalTo: controller.view.heightAnchor, multiplier: 0.2).isActive = true
+        
+       
+        jointScroll.contentSize = CGSize(width: contentWidth, height: contentHeight)
+        jointScroll.layer.borderWidth = 2
+        jointScroll.layer.borderColor = UIColor.black.cgColor
+        jointScroll.layer.backgroundColor = UIColor.yellow.cgColor
+        jointScroll.translatesAutoresizingMaskIntoConstraints = false
+        //controller.getView.addSubview(shapeScroll)
+        controller.view.addSubview(jointScroll)
+        jointScroll.leftAnchor.constraint(equalTo: controller.view.leftAnchor, constant: 0).isActive = true
+        jointScroll.topAnchor.constraint(equalTo: shapeScroll.bottomAnchor, constant: 0).isActive = true
+        jointScroll.widthAnchor.constraint(equalTo: controller.view.widthAnchor, multiplier: 0.1).isActive = true
+        jointScroll.heightAnchor.constraint(equalTo: controller.view.heightAnchor, multiplier: 0.2).isActive = true
+        
+        //addSubview(shapeScroll)
+
+        /*
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.addTarget(self, action: #selector(StudioViewController.cameraChanged(_:)), for: .valueChanged)
+        scnView.addSubview(segmentedControl)
+        
+        segmentedControl.rightAnchor.constraint(equalTo: view.rightAnchor, constant:  -15).isActive = true
+        segmentedControl.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
+        segmentedControl.topAnchor.constraint(equalTo: view.topAnchor, constant: 15).isActive = true
+ */
+        /*        let shapeFrame = CGRect(x:0,y:33,width:77,height:150)
         shapeScroll = UIScrollView(frame: shapeFrame)
         
         let neuronFrame = CGRect(x:0,y:183,width:77,height:150)
@@ -39,7 +82,7 @@ class HierarchyView: UIView{
         jointScroll.layer.borderWidth = 2
         jointScroll.layer.borderColor = UIColor.black.cgColor
         addSubview(shapeScroll)
-        addSubview(jointScroll)
+        addSubview(jointScroll) */
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -22,6 +22,12 @@ class StudioViewController: UIViewController {
         return toolBarManager!
     }
     
+    var segmentedControl: UISegmentedControl?
+    func getSegmentedControl() -> UISegmentedControl {
+        return segmentedControl!
+        
+    }
+    
     var hierarchyView: HierarchyView?
     func getHierarchyView() -> HierarchyView{
         return hierarchyView!
@@ -30,6 +36,11 @@ class StudioViewController: UIViewController {
     var toggleToolBarView: ToggleToolBarView?
     func getToggleToolBarView() -> ToggleToolBarView{
         return toggleToolBarView!
+    }
+    
+    var positionDisplay: PositionDisplay?
+    func getPositionDisplay() -> PositionDisplay {
+        return positionDisplay!
     }
     
     var robot = Robot()
@@ -142,15 +153,29 @@ class StudioViewController: UIViewController {
         //create classes
         shapeManager = ShapeManager(controller: self)
         toolBarManager = ToolBarManager(controller: self)
+        
+        
+        //var shapeSelector = ShapeSelectorToolBar(controller: self)
+        
+        
         toolBarManager!.addToolBar(name: "shapeSelector", toolbar: ShapeSelectorToolBar(controller: self))
+        //toolBarManager!.addToolBar(name: "shapeSelector", toolbar: shapeSelector)
         toolBarManager!.addToolBar(name: "movement", toolbar: MovementToolBar(controller: self))
         toolBarManager!.addToolBar(name: "rotation", toolbar: RotationToolBar(controller: self))
         toolBarManager!.addToolBar(name: "joint", toolbar: JointToolBar(controller: self))
+        
+
 
         toggleToolBarView = ToggleToolBarView(controller: self)
         hierarchyView = HierarchyView(controller: self)
-        view.addSubview(toggleToolBarView!)
+        
+        
+        
+        
+        //view.addSubview(toggleToolBarView!)
         view.addSubview(hierarchyView!)
+//        view.addSubview(toggleToolBarView!)
+//        toggleToolBarView!.addMargins()
         
         // create camera
         var cameraNode: SCNNode = SCNNode()
@@ -225,21 +250,17 @@ class StudioViewController: UIViewController {
         scnView.addGestureRecognizer(tapGesture)
         
         
-        let segmentedControl = UISegmentedControl(items: ["Default", "Top", "Left"])
+        segmentedControl = UISegmentedControl(items: ["Default", "Top", "Left"])
         //backgroundColor = UIColor.white.withAlphaComponent(0)
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.addTarget(self, action: #selector(StudioViewController.cameraChanged(_:)), for: .valueChanged)
-        scnView.addSubview(segmentedControl)
+        segmentedControl!.selectedSegmentIndex = 0
+        segmentedControl!.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl!.addTarget(self, action: #selector(StudioViewController.cameraChanged(_:)), for: .valueChanged)
+        scnView.addSubview(segmentedControl!)
         
-        let topConstraint = segmentedControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 5)
-        let margins = view.layoutMarginsGuide
-        let leadingConstraint = segmentedControl.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 150)
-        let trailingConstraint = segmentedControl.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
-        topConstraint.isActive = true
-        leadingConstraint.isActive = true
-        trailingConstraint.isActive = true
-        
+        segmentedControl!.rightAnchor.constraint(equalTo: view.rightAnchor, constant:  -15).isActive = true
+        segmentedControl!.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
+        segmentedControl!.topAnchor.constraint(equalTo: view.topAnchor, constant: 15).isActive = true
+    
         
         xDrag = getShapeManager().spawnCircle()
         xDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0,green:0,blue:0,alpha:0)
@@ -264,9 +285,13 @@ class StudioViewController: UIViewController {
         zDrag!.scale.z = 0.35
         utilityNodes.append(zDrag!)
         dragNodes.append(zDrag!)
+    
         
-        log(message: "success")
+        //Create the position display view.
+        positionDisplay = PositionDisplay(controller: self)
+        view.addSubview(positionDisplay!)
         
+        //view.addSubview(toggleToolBarView!)
         
     }
     
@@ -281,7 +306,6 @@ class StudioViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let scnView = self.view as! SCNView
-        print("new touch")
         if let touch = touches.first {
 //            let tapPoint: CGPoint = touch.location(in: scnView)
 //            let result = scnView.hitTest(tapPoint, options: nil)
@@ -358,6 +382,7 @@ class StudioViewController: UIViewController {
                 
             }
         }
+        positionDisplay?.updatePositionLabels(controller: self)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -437,4 +462,26 @@ class StudioViewController: UIViewController {
         }
     }
 
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if UIDevice.current.orientation.isLandscape {
+            print("Landscape")
+            let maxY = Int(self.view.bounds.maxY)
+            //print(maxY)
+            let toolbar = CGRect(x:0,y: maxY - 500,width:800,height:75)
+            getToggleToolBarView().frame = toolbar
+//            getToggleToolBarView().removeFromSuperview()
+//            self.view.addSubview(getToggleToolBarView())
+            print(getToggleToolBarView().frame.maxY)
+            //getToggleToolBarView().frame = toolbar
+        } else {
+            print("Portrait")
+            let maxY = Int(self.view.bounds.maxY)
+            //print(maxY)
+            let toolbar = CGRect(x:0,y: maxY - 200,width:800,height:75)
+            getToggleToolBarView().frame = toolbar
+//            getToggleToolBarView().removeFromSuperview()
+//            self.view.addSubview(getToggleToolBarView())
+            print(getToggleToolBarView().frame.maxY)
+        }
+    }
 }

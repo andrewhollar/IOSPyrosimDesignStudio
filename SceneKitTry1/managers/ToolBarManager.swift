@@ -19,6 +19,7 @@ class ToolBarManager {
     var currentToolBar: UIView?
     var viewController: StudioViewController
     var robot: Robot
+    let buttonSize = 75
     
     init(controller: StudioViewController){
         self.robot = controller.getRobot()
@@ -35,7 +36,16 @@ class ToolBarManager {
         }
         if(currentToolBar != toolbar){
             currentToolBar = toolbar
+            //toolbar.addButtonsToView()
             viewController.view.addSubview(toolbar)
+            addMargin(view: toolbar)
+            //toolbar.addM
+            //toolbar.translatesAutoresizingMaskIntoConstraints = false
+//            toolbar.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor, constant: -120).isActive = true
+//            toolbar.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor, constant: -150).isActive = true
+//            toolbar.heightAnchor.constraint(equalToConstant: 75).isActive = true
+            
+            
         }else{
             currentToolBar = nil;
         }
@@ -49,6 +59,14 @@ class ToolBarManager {
     
     func current() -> UIView?{
         return currentToolBar
+    }
+    
+    func addMargin(view: UIView) {
+        view.backgroundColor = UIColor.yellow
+        
+        view.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor, constant: -400).isActive = true
+        view.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor, constant: -150).isActive = true
+        view.heightAnchor.constraint(equalToConstant: CGFloat(buttonSize)).isActive = true
     }
     
 }

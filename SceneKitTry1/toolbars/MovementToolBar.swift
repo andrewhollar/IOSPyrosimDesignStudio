@@ -26,6 +26,10 @@ class MovementToolBar : UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
+    func addButtonsToView() {
+    
+    }
+    
     func populateWithButtons(){
         
         let addXButton = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)) //addX button

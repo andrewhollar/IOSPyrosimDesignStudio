@@ -38,6 +38,10 @@ class JointToolBar: UIView{
         addSubview(jointButton)
     }
     
+    func addButtonsToView() {
+        
+    }
+    
     @objc
     func addJoint() {
         let joint = shapeManager.spawnJoint()
