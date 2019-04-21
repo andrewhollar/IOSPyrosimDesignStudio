@@ -32,6 +32,16 @@ class StudioViewController: UIViewController {
         return toggleToolBarView!
     }
     
+    var segmentedControl: UISegmentedControl?
+    func getSegmentedControl() -> UISegmentedControl {
+        return segmentedControl!
+    }
+    
+    var positionDisplayView: PositionDisplayView?
+    func getPositionDisplayView() -> PositionDisplayView {
+        return positionDisplayView!
+    }
+    
     var robot = Robot()
     func getRobot() -> Robot{
         return robot
@@ -150,6 +160,7 @@ class StudioViewController: UIViewController {
 
         toggleToolBarView = ToggleToolBarView(controller: self)
         hierarchyView = HierarchyView(controller: self)
+        
         view.addSubview(toggleToolBarView!)
         view.addSubview(hierarchyView!)
         
@@ -226,23 +237,21 @@ class StudioViewController: UIViewController {
         scnView.addGestureRecognizer(tapGesture)
         
         
-        let segmentedControl = UISegmentedControl(items: ["Default", "Top", "Left"])
-        //backgroundColor = UIColor.white.withAlphaComponent(0)
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.addTarget(self, action: #selector(StudioViewController.cameraChanged(_:)), for: .valueChanged)
-        scnView.addSubview(segmentedControl)
+        segmentedControl = UISegmentedControl(items: ["Default", "Top", "Left"])
+        segmentedControl!.selectedSegmentIndex = 0
+        segmentedControl!.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl!.addTarget(self, action: #selector(StudioViewController.cameraChanged(_:)), for: .valueChanged)
+        scnView.addSubview(segmentedControl!)
         
-        let topConstraint = segmentedControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 5)
-        let margins = view.layoutMarginsGuide
-        let leadingConstraint = segmentedControl.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 150)
-        let trailingConstraint = segmentedControl.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
-        topConstraint.isActive = true
-        leadingConstraint.isActive = true
-        trailingConstraint.isActive = true
+        segmentedControl!.rightAnchor.constraint(equalTo: view.rightAnchor, constant:  -15).isActive = true
+        segmentedControl!.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
+        segmentedControl!.topAnchor.constraint(equalTo: view.topAnchor, constant: 15).isActive = true
+        
+        positionDisplayView = PositionDisplayView(controller: self)
+        view.addSubview(positionDisplayView!)
         
         
-        xDrag = getShapeManager().spawnCircle()
+        xDrag = getShapeManager().spawnSphere()
         xDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0,green:0,blue:0,alpha:0)
         xDrag!.scale.x = 0.35
         xDrag!.scale.y = 0.35
@@ -250,7 +259,7 @@ class StudioViewController: UIViewController {
         utilityNodes.append(xDrag!)
         dragNodes.append(xDrag!)
         
-        yDrag = getShapeManager().spawnCircle()
+        yDrag = getShapeManager().spawnSphere()
         yDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0,green:0,blue:0,alpha:0)
         yDrag!.scale.x = 0.35
         yDrag!.scale.y = 0.35
@@ -258,7 +267,7 @@ class StudioViewController: UIViewController {
         utilityNodes.append(yDrag!)
         dragNodes.append(yDrag!)
         
-        zDrag = getShapeManager().spawnCircle()
+        zDrag = getShapeManager().spawnSphere()
         zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0,green:0,blue:0,alpha:0)
         zDrag!.scale.x = 0.35
         zDrag!.scale.y = 0.35
@@ -347,6 +356,7 @@ class StudioViewController: UIViewController {
                         xDrag!.position = SCNVector3(pos!.x + 2,pos!.y,pos!.z)
                         yDrag!.position = SCNVector3(pos!.x,pos!.y + 2,pos!.z)
                         zDrag!.position = SCNVector3(pos!.x,pos!.y,pos!.z + 2)
+                        positionDisplayView?.updatePositionLabels(controller: self)
                     }
                 }
                 

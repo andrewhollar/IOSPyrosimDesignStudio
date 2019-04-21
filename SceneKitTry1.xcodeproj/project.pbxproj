@@ -12,6 +12,7 @@
 		1AACAF10220DF05B00DB2560 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AACAF0E220DF05B00DB2560 /* Main.storyboard */; };
 		1AACAF12220DF05C00DB2560 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AACAF11220DF05C00DB2560 /* Assets.xcassets */; };
 		1AACAF15220DF05C00DB2560 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AACAF13220DF05C00DB2560 /* LaunchScreen.storyboard */; };
+		4016A9DB226CE80C00597026 /* PositionDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4016A9DA226CE80C00597026 /* PositionDisplayView.swift */; };
 		406D75DF224EAE1700C583B9 /* ToolBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75DE224EAE1700C583B9 /* ToolBarManager.swift */; };
 		406D75E1224EB27000C583B9 /* Robot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E0224EB27000C583B9 /* Robot.swift */; };
 		406D75E4224EB36900C583B9 /* HierarchyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E3224EB36900C583B9 /* HierarchyView.swift */; };
@@ -50,6 +51,7 @@
 		1AACAF16220DF05C00DB2560 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AACAF1B220DF05C00DB2560 /* SceneKitTry1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SceneKitTry1Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AACAF26220DF05C00DB2560 /* SceneKitTry1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SceneKitTry1UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4016A9DA226CE80C00597026 /* PositionDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionDisplayView.swift; sourceTree = "<group>"; };
 		406D75DE224EAE1700C583B9 /* ToolBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarManager.swift; sourceTree = "<group>"; };
 		406D75E0224EB27000C583B9 /* Robot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Robot.swift; sourceTree = "<group>"; };
 		406D75E3224EB36900C583B9 /* HierarchyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HierarchyView.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			children = (
 				406D75E3224EB36900C583B9 /* HierarchyView.swift */,
 				406D75E5224EB37600C583B9 /* ToggleToolBarView.swift */,
+				4016A9DA226CE80C00597026 /* PositionDisplayView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			files = (
 				406D75E1224EB27000C583B9 /* Robot.swift in Sources */,
 				409EBBFC22287744008BC5E7 /* ShapeManager.swift in Sources */,
+				4016A9DB226CE80C00597026 /* PositionDisplayView.swift in Sources */,
 				406D75E4224EB36900C583B9 /* HierarchyView.swift in Sources */,
 				406D75E6224EB37600C583B9 /* ToggleToolBarView.swift in Sources */,
 				1AACAF0D220DF05B00DB2560 /* StudioViewController.swift in Sources */,

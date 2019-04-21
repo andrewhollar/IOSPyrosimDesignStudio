@@ -102,5 +102,4 @@ class MovementToolBar : UIView{
         }
     }
     
-    
 }
