@@ -45,7 +45,14 @@ class Robot{
         return shapeNodes
     }
     
-    
+    func removeCurrentShape(node: SCNNode){
+        if(node.isKind(of: Joint.self)){
+            removeJointNode(joint: node as! Joint)
+        }else{
+            removeShapeNode(node: node)
+        }
+        
+    }
 }
 
 class Joint: SCNNode {

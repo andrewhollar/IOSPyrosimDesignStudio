@@ -63,6 +63,7 @@ class ShapeManager {
     }
     
     func removeNode(node: SCNNode){
+        //Remove SceneKit Node
         node.removeFromParentNode()
     }
     

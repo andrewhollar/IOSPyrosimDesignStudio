@@ -19,6 +19,7 @@ class ToggleToolBarView: UIView{
     var rotationButton: UIButton
     var neuralNetworkButton: UIButton
     var sensorsButton: UIButton
+    
     var buttons = [UIButton]()
     
     var buttonSize = 75

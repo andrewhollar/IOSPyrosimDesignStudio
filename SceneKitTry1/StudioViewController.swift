@@ -60,6 +60,13 @@ class StudioViewController: UIViewController {
         return zDrag
     }
     
+
+    //Sets draggers to opaque
+    func hideDraggers(){
+        xDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 150.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 0)
+        yDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 150.0 / 255.0, blue: 30.0 / 255.0, alpha: 0)
+        zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 150.0 / 255.0, alpha: 0)
+
     var xResize: SCNNode?
     func getXResize() -> SCNNode?{
         return xResize
@@ -99,6 +106,18 @@ class StudioViewController: UIViewController {
         yDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 150.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 150.0 / 255.0, alpha: 1)
         
+        xDrag?.position.x = node.position.x + 2
+        xDrag?.position.y = node.position.y
+        xDrag?.position.z = node.position.z
+        
+        yDrag?.position.x = node.position.x
+        yDrag?.position.y = node.position.y + 2
+        yDrag?.position.z = node.position.z
+        
+        zDrag?.position.x = node.position.x
+        zDrag?.position.y = node.position.y
+        zDrag?.position.z = node.position.z + 2
+
         xResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 200.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         yResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 200.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         zResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 200.0 / 255.0, alpha: 1)
@@ -167,11 +186,12 @@ class StudioViewController: UIViewController {
         currentShape = node
         updateShapeColors()
         hierarchyView!.update()
-        
+
         self.nonSnapXScale = (currentShape?.scale.x)!
         self.nonSnapYScale = (currentShape?.scale.y)!
         self.nonSnapZScale = (currentShape?.scale.z)!
     }
+
     
     func setColor(node: SCNNode){
         let currentShape = getCurrentShape()
