@@ -76,6 +76,7 @@ class StudioViewController: UIViewController {
         shapesTransparent = b
     }
     func setCurrentShape(node: SCNNode){
+        positionDisplayView?.updatePositionLabels(controller: self)
         xDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 150.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         yDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 150.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 150.0 / 255.0, alpha: 1)
@@ -154,7 +155,6 @@ class StudioViewController: UIViewController {
         shapeManager = ShapeManager(controller: self)
         toolBarManager = ToolBarManager(controller: self)
         toolBarManager!.addToolBar(name: "shapeSelector", toolbar: ShapeSelectorToolBar(controller: self))
-        toolBarManager!.addToolBar(name: "movement", toolbar: MovementToolBar(controller: self))
         toolBarManager!.addToolBar(name: "rotation", toolbar: RotationToolBar(controller: self))
         toolBarManager!.addToolBar(name: "joint", toolbar: JointToolBar(controller: self))
 
@@ -448,7 +448,7 @@ class StudioViewController: UIViewController {
     func updatePadding(){
         let phoneWidth = view.bounds.maxX - view.bounds.minX;
         let phoneHeight = view.bounds.maxY - view.bounds.minY;
-        getToggleToolBarView().frame = CGRect(x:Int((phoneWidth - 76*5)/2),y:Int(phoneHeight - 75),width:75 * 5,height:75)
+        getToggleToolBarView().frame = CGRect(x:Int((phoneWidth - 76*4)/2),y:Int(phoneHeight - 75),width:75 * 4,height:75)
         
         if(toolBarManager!.current() != nil){
             toolBarManager!.current()!.frame = CGRect(x:Int((phoneWidth - 76*4)/2),y:Int(phoneHeight - 75*2),width:75 * 4,height:75)
