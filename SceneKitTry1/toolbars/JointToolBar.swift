@@ -40,6 +40,16 @@ class JointToolBar: UIView{
     
     @objc
     func addJoint() {
+        //Prompt use to select two objects
+        
+        
+        //Only allow objects on the screen to be selected
+        
+        //Once two objects are selected, calculate middle position to long edges <-->*<-->
+        
+        //Create leg with O0, O1, and the Joint
+        
+        
         let joint = shapeManager.spawnJoint()
         robot.addJointNode(joint: joint)
         viewController.setCurrentShape(node: joint)

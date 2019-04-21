@@ -11,13 +11,19 @@ import UIKit
 import SceneKit
 
 class HierarchyView: UIView{
+    
     var viewController: StudioViewController
+    var shapeManager: ShapeManager
     var robot: Robot
+    
     var jointScroll: UIScrollView
     var shapeScroll: UIScrollView
+    var trashButton: UIButton
     
     init(controller: StudioViewController){
         self.viewController = controller
+        self.shapeManager = controller.getShapeManager()
+        
         self.robot = controller.getRobot()
         
         let shapeFrame = CGRect(x:0,y:33,width:77,height:150)
@@ -27,6 +33,9 @@ class HierarchyView: UIView{
         jointScroll = UIScrollView(frame: neuronFrame)
         
         let toolbar = CGRect(x:0,y:33,width:77,height:350)
+        
+        self.trashButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75)) //sensors
+
         super.init(frame: toolbar)
         backgroundColor = UIColor.darkGray
         
@@ -40,6 +49,11 @@ class HierarchyView: UIView{
         jointScroll.layer.borderColor = UIColor.black.cgColor
         addSubview(shapeScroll)
         addSubview(jointScroll)
+        
+        trashButton.addTarget(self, action: #selector(throwAwayCurrentObject), for: .primaryActionTriggered)
+        trashButton.setImage(UIImage(named: "trashButton"), for: UIControl.State.normal)
+        addSubview(trashButton)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -90,4 +104,24 @@ class HierarchyView: UIView{
         update()
     }
     
+    @objc func throwAwayCurrentObject(sender: UIButton){
+        if(viewController.getCurrentShape() != nil){
+            //Remove from view
+            shapeManager.removeNode(node: viewController.getCurrentShape()!)
+            
+            //Delete from Robot Management
+            robot.removeCurrentShape(node: viewController.getCurrentShape()!)
+            
+            ///OTHER PLACES STORED
+            viewController.hideDraggers()
+            
+            //Delete from heirarchy view
+            update()
+            
+            
+            
+            
+        }
+
+    }
 }

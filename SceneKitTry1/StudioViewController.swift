@@ -50,6 +50,13 @@ class StudioViewController: UIViewController {
         return zDrag
     }
     
+    //Sets draggers to opaque
+    func hideDraggers(){
+        xDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 150.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 0)
+        yDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 150.0 / 255.0, blue: 30.0 / 255.0, alpha: 0)
+        zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 150.0 / 255.0, alpha: 0)
+    }
+    
     var utilityNodes = [SCNNode]()
     var dragNodes = [SCNNode]()
     
@@ -74,7 +81,6 @@ class StudioViewController: UIViewController {
         xDrag?.position.y = node.position.y
         xDrag?.position.z = node.position.z
         
-        
         yDrag?.position.x = node.position.x
         yDrag?.position.y = node.position.y + 2
         yDrag?.position.z = node.position.z
@@ -92,8 +98,8 @@ class StudioViewController: UIViewController {
         currentShape = node
         updateShapeColors()
         hierarchyView!.update()
-        
     }
+
     
     func setColor(node: SCNNode){
         let currentShape = getCurrentShape()
@@ -144,7 +150,6 @@ class StudioViewController: UIViewController {
         shapeManager = ShapeManager(controller: self)
         toolBarManager = ToolBarManager(controller: self)
         toolBarManager!.addToolBar(name: "shapeSelector", toolbar: ShapeSelectorToolBar(controller: self))
-        toolBarManager!.addToolBar(name: "movement", toolbar: MovementToolBar(controller: self))
         toolBarManager!.addToolBar(name: "rotation", toolbar: RotationToolBar(controller: self))
         toolBarManager!.addToolBar(name: "joint", toolbar: JointToolBar(controller: self))
 

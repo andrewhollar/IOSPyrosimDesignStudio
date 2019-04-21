@@ -16,7 +16,6 @@
 		406D75E1224EB27000C583B9 /* Robot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E0224EB27000C583B9 /* Robot.swift */; };
 		406D75E4224EB36900C583B9 /* HierarchyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E3224EB36900C583B9 /* HierarchyView.swift */; };
 		406D75E6224EB37600C583B9 /* ToggleToolBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E5224EB37600C583B9 /* ToggleToolBarView.swift */; };
-		406D75E8224EBE9600C583B9 /* MovementToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E7224EBE9600C583B9 /* MovementToolBar.swift */; };
 		406D75EA224EC10100C583B9 /* ShapeSelectorToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E9224EC10100C583B9 /* ShapeSelectorToolBar.swift */; };
 		4092EE892253A9D100A0D2C8 /* JointToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4092EE882253A9D100A0D2C8 /* JointToolBar.swift */; };
 		409EBBFC22287744008BC5E7 /* ShapeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409EBBFB22287744008BC5E7 /* ShapeManager.swift */; };
@@ -54,7 +53,6 @@
 		406D75E0224EB27000C583B9 /* Robot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Robot.swift; sourceTree = "<group>"; };
 		406D75E3224EB36900C583B9 /* HierarchyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HierarchyView.swift; sourceTree = "<group>"; };
 		406D75E5224EB37600C583B9 /* ToggleToolBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleToolBarView.swift; sourceTree = "<group>"; };
-		406D75E7224EBE9600C583B9 /* MovementToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementToolBar.swift; sourceTree = "<group>"; };
 		406D75E9224EC10100C583B9 /* ShapeSelectorToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeSelectorToolBar.swift; sourceTree = "<group>"; };
 		4092EE882253A9D100A0D2C8 /* JointToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JointToolBar.swift; sourceTree = "<group>"; };
 		409EBBFB22287744008BC5E7 /* ShapeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeManager.swift; sourceTree = "<group>"; };
@@ -133,7 +131,6 @@
 		409EBBF722286900008BC5E7 /* toolbars */ = {
 			isa = PBXGroup;
 			children = (
-				406D75E7224EBE9600C583B9 /* MovementToolBar.swift */,
 				406D75E9224EC10100C583B9 /* ShapeSelectorToolBar.swift */,
 				B616B4AF2252DE98005BB371 /* RotationToolBar.swift */,
 				4092EE882253A9D100A0D2C8 /* JointToolBar.swift */,
@@ -289,7 +286,6 @@
 				406D75EA224EC10100C583B9 /* ShapeSelectorToolBar.swift in Sources */,
 				406D75DF224EAE1700C583B9 /* ToolBarManager.swift in Sources */,
 				B616B4B02252DE98005BB371 /* RotationToolBar.swift in Sources */,
-				406D75E8224EBE9600C583B9 /* MovementToolBar.swift in Sources */,
 				4092EE892253A9D100A0D2C8 /* JointToolBar.swift in Sources */,
 				1AACAF09220DF05B00DB2560 /* AppDelegate.swift in Sources */,
 			);
