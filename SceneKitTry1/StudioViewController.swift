@@ -71,6 +71,10 @@ class StudioViewController: UIViewController {
     var nonSnapYScale: Float = 1.0
     var nonSnapZScale: Float = 1.0
     
+    var nonSnapXPos: Float = 0.0
+    var nonSnapYPos: Float = 0.0
+    var nonSnapZPos: Float = 0.0
+    
     var currentShape: SCNNode?
     func getCurrentShape() -> SCNNode?{
         return currentShape
@@ -376,9 +380,15 @@ class StudioViewController: UIViewController {
     var resizedObject:SCNNode?
     var direction = ""
     var startTouch: CGPoint?
+    
+    
     var prevXScale: Float = 1.0
     var prevYScale: Float = 1.0
     var prevZScale: Float = 1.0
+//    var prevXPos: Float = 0.0
+//    var prevYPos: Float = 0.0
+//    var prevZPos: Float = 0.0
+    
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -471,7 +481,30 @@ class StudioViewController: UIViewController {
                     //Only updating Y axis position
                     var pos: SCNVector3?
                     if(direction == "x"){
+                        /*let newXScale = Float(Double((resizedObject?.scale.x)! + resizeConstant))
+                        let deltaXScale = newXScale - (resizedObject?.scale.x)!
+                        print(deltaXScale)
+                        self.nonSnapXScale += deltaXScale
+                        print(self.nonSnapXScale)
+                        let snapXScale = Double(self.nonSnapXScale).floor(nearest: 1)
+                        print(snapXScale)*/
+//                        let newXPos = Float(Double((movedObject?.position.x)! + resizeConstant))
+//                        let deltaXPos = newXPos - (movedObject?.position.x)!
+//                        print(deltaXPos)
+//                        self.nonSnapXPos += deltaXPos
+//                        print(self.nonSnapXPos)
+//                        let snapXPos = Double(self.nonSnapXPos).floor(nearest: 1)
+//                        print(snapXPos)
+//
+//                        pos = SCNVector3(x: Float(snapXPos), y: (movedObject?.position.y)! , z: (movedObject?.position.z)!)
+//                        if (self.prevXPos != Float(snapXPos)) {
+//                            xResize!.position = SCNVector3(x: (xResize?.position.x)! + 1, y: (xResize?.position.y)!, z: (xResize?.position.z)!)
+//                            xDrag!.position = SCNVector3(x: (xDrag?.position.x)! + 1, y: (xDrag?.position.y)!, z: (xDrag?.position.z)!)
+//                        }
+//
                         pos = SCNVector3Make(realLocation3D.x,(movedObject?.position.y)!, (movedObject?.position.z)!)
+                        
+                        //self.prevXPos = Float(snapXPos)
                     }else if(direction == "y"){
                         pos = SCNVector3Make((movedObject?.position.x)!, realLocation3D.y, (movedObject?.position.z)!)
                     }else if(direction  == "z"){
