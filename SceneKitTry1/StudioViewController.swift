@@ -67,6 +67,10 @@ class StudioViewController: UIViewController {
     var dragNodes = [SCNNode]()
     var resizeNodes = [SCNNode]()
     
+    var nonSnapXScale: Float = 1.0
+    var nonSnapYScale: Float = 1.0
+    var nonSnapZScale: Float = 1.0
+    
     var currentShape: SCNNode?
     func getCurrentShape() -> SCNNode?{
         return currentShape
@@ -84,33 +88,66 @@ class StudioViewController: UIViewController {
         yDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 150.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 150.0 / 255.0, alpha: 1)
         
-        xDrag?.position.x = node.position.x + 2
-        xDrag?.position.y = node.position.y
-        xDrag?.position.z = node.position.z
-        
-        yDrag?.position.x = node.position.x
-        yDrag?.position.y = node.position.y + 2
-        yDrag?.position.z = node.position.z
-        
-        zDrag?.position.x = node.position.x
-        zDrag?.position.y = node.position.y
-        zDrag?.position.z = node.position.z + 2
-        
         xResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 200.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         yResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 200.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         zResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 200.0 / 255.0, alpha: 1)
         
-        xResize?.position.x = node.position.x + 4
-        xResize?.position.y = node.position.y
-        xResize?.position.z = node.position.z
+        if node.geometry is SCNSphere || node.geometry is SCNBox {
+            xDrag?.position.x = node.position.x + node.scale.x + 1
+            xDrag?.position.y = node.position.y
+            xDrag?.position.z = node.position.z
+            
+            yDrag?.position.x = node.position.x
+            yDrag?.position.y = node.position.y + node.scale.y + 1
+            yDrag?.position.z = node.position.z
+            
+            zDrag?.position.x = node.position.x
+            zDrag?.position.y = node.position.y
+            zDrag?.position.z = node.position.z + node.scale.z + 1
+            
+            xResize?.position.x = node.position.x + node.scale.x + 3
+            xResize?.position.y = node.position.y
+            xResize?.position.z = node.position.z
+            
+            yResize?.position.x = node.position.x
+            yResize?.position.y = node.position.y + node.scale.y + 3
+            yResize?.position.z = node.position.z
+            
+            zResize?.position.x = node.position.x
+            zResize?.position.y = node.position.y
+            zResize?.position.z = node.position.z + node.scale.z + 3
+        }
+        else if node.geometry is SCNCylinder {
+            let cyl = node.geometry as! SCNCylinder
+            
+            let tempY: CGFloat = CGFloat(Float(cyl.height) * node.scale.y)
+
+            xDrag?.position.x = node.position.x + node.scale.x + 1
+            xDrag?.position.y = node.position.y
+            xDrag?.position.z = node.position.z
+            
+            yDrag?.position.x = node.position.x
+            yDrag?.position.y = node.position.y + Float((tempY / 2) + 1.0)
+            yDrag?.position.z = node.position.z
+            
+            zDrag?.position.x = node.position.x
+            zDrag?.position.y = node.position.y
+            zDrag?.position.z = node.position.z + node.scale.z + 1
+            
+            xResize?.position.x = node.position.x + node.scale.x + 3
+            xResize?.position.y = node.position.y
+            xResize?.position.z = node.position.z
+            
+            yResize?.position.x = node.position.x
+            yResize?.position.y = node.position.y + Float((tempY / 2) + 3.0)
+            yResize?.position.z = node.position.z
+            
+            zResize?.position.x = node.position.x
+            zResize?.position.y = node.position.y
+            zResize?.position.z = node.position.z + node.scale.z + 3
+        }
         
-        yResize?.position.x = node.position.x
-        yResize?.position.y = node.position.y + 4
-        yResize?.position.z = node.position.z
         
-        zResize?.position.x = node.position.x
-        zResize?.position.y = node.position.y
-        zResize?.position.z = node.position.z + 4
         
         if(node.isKind(of: Joint.self)){
             setShapesTransparent(b: true)
@@ -122,6 +159,9 @@ class StudioViewController: UIViewController {
         updateShapeColors()
         hierarchyView!.update()
         
+        self.nonSnapXScale = (currentShape?.scale.x)!
+        self.nonSnapYScale = (currentShape?.scale.y)!
+        self.nonSnapZScale = (currentShape?.scale.z)!
     }
     
     func setColor(node: SCNNode){
@@ -329,10 +369,17 @@ class StudioViewController: UIViewController {
     
     
     let resizeConstant: Float = 0.05
+    let snapToVal: Double = 1.0
+    
+    
     var movedObject:SCNNode?
     var resizedObject:SCNNode?
     var direction = ""
     var startTouch: CGPoint?
+    var prevXScale: Float = 1.0
+    var prevYScale: Float = 1.0
+    var prevZScale: Float = 1.0
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let scnView = self.view as! SCNView
@@ -361,9 +408,9 @@ class StudioViewController: UIViewController {
                         direction = "z"
                         zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 70.0 / 255.0, green: 70.0 / 255.0, blue: 190.0 / 255.0, alpha: 1)
                     }
-                    xResize?.removeFromParentNode()
-                    yResize?.removeFromParentNode()
-                    zResize?.removeFromParentNode()
+//                    xResize?.removeFromParentNode()
+//                    yResize?.removeFromParentNode()
+//                    zResize?.removeFromParentNode()
 //                    xResize?.isHidden = true
 //                    yResize?.isHidden = true
 //                    zResize?.isHidden = true
@@ -432,12 +479,28 @@ class StudioViewController: UIViewController {
                     }
                     if(pos != nil){
                         movedObject?.position = pos!
-                        xDrag!.position = SCNVector3(pos!.x + 2,pos!.y,pos!.z)
-                        yDrag!.position = SCNVector3(pos!.x,pos!.y + 2,pos!.z)
-                        zDrag!.position = SCNVector3(pos!.x,pos!.y,pos!.z + 2)
-                        xResize!.position = SCNVector3(pos!.x + 4,pos!.y,pos!.z)
-                        yResize!.position = SCNVector3(pos!.x,pos!.y + 4,pos!.z)
-                        zResize!.position = SCNVector3(pos!.x,pos!.y,pos!.z + 4)
+
+                        if movedObject!.geometry is SCNSphere || movedObject!.geometry is SCNBox {
+                            xDrag!.position = SCNVector3(pos!.x + (movedObject?.scale.x)! + 1, pos!.y, pos!.z)
+                            yDrag!.position = SCNVector3(pos!.x,pos!.y + (movedObject?.scale.y)! + 1,pos!.z)
+                            zDrag!.position = SCNVector3(pos!.x,pos!.y,pos!.z + (movedObject?.scale.z)! + 1)
+                            xResize!.position = SCNVector3(pos!.x + (movedObject?.scale.x)! + 3, pos!.y, pos!.z)
+                            yResize!.position = SCNVector3(pos!.x,pos!.y + (movedObject?.scale.y)! + 3,pos!.z)
+                            zResize!.position = SCNVector3(pos!.x,pos!.y,pos!.z + (movedObject?.scale.z)! + 3)
+
+                        }
+                        else if movedObject!.geometry is SCNCylinder {
+                            let cyl = movedObject!.geometry as! SCNCylinder
+                            
+                            let tempY: CGFloat = CGFloat(Float(cyl.height) * (movedObject?.scale.y)!)
+                            
+                            xDrag!.position = SCNVector3(pos!.x + (movedObject?.scale.x)! + 1, pos!.y, pos!.z)
+                            yDrag!.position = SCNVector3(pos!.x,pos!.y + Float((tempY / 2) + 1.0) ,pos!.z)
+                            zDrag!.position = SCNVector3(pos!.x,pos!.y,pos!.z + (movedObject?.scale.z)! + 1)
+                            xResize!.position = SCNVector3(pos!.x + (movedObject?.scale.x)! + 3, pos!.y, pos!.z)
+                            yResize!.position = SCNVector3(pos!.x,pos!.y + Float((tempY / 2) + 3.0),pos!.z)
+                            zResize!.position = SCNVector3(pos!.x,pos!.y,pos!.z + (movedObject?.scale.z)! + 3)
+                        }
                     }
                 }
             }
@@ -459,46 +522,185 @@ class StudioViewController: UIViewController {
                     ////boxNode.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5)
                     var scale: SCNVector3?
                     if(direction == "x"){
-                        if (startTouch!.x - touch.location(in: scnView).x < 0) {
-                            scale = SCNVector3(x: (resizedObject?.scale.x)! + resizeConstant, y: (resizedObject?.scale.y)!, z: (resizedObject?.scale.z)!)
-                            xResize!.position = SCNVector3(x: (xResize?.position.x)! + resizeConstant, y: (xResize?.position.y)!, z: (xResize?.position.z)!)
+                        if (startTouch!.x < location2D.x) {
+                            print("Up")
+                            let newXScale = Float(Double((resizedObject?.scale.x)! + resizeConstant))
+                            let deltaXScale = newXScale - (resizedObject?.scale.x)!
+                            print(deltaXScale)
+                            self.nonSnapXScale += deltaXScale
+                            print(self.nonSnapXScale)
+                            let snapXScale = Double(self.nonSnapXScale).floor(nearest: 1)
+                            print(snapXScale)
+                            
+                            scale = SCNVector3(x: Float(snapXScale), y: (resizedObject?.scale.y)! , z: (resizedObject?.scale.z)!)
+                            
+                            if (self.prevXScale != Float(snapXScale)) {
+                                if (resizedObject?.geometry is SCNSphere) {
+                                    xResize!.position = SCNVector3(x: (xResize?.position.x)! + 1, y: (xResize?.position.y)!, z: (xResize?.position.z)!)
+                                    xDrag!.position = SCNVector3(x: (xDrag?.position.x)! + 1, y: (xDrag?.position.y)!, z: (xDrag?.position.z)!)
+                                }
+                                else if (resizedObject?.geometry is SCNCylinder) {
+                                    xResize!.position = SCNVector3(x: (xResize?.position.x)! + 1, y: (xResize?.position.y)!, z: (xResize?.position.z)!)
+                                    xDrag!.position = SCNVector3(x: (xDrag?.position.x)! + 1, y: (xDrag?.position.y)!, z: (xDrag?.position.z)!)
+                                }
+                                else if (resizedObject?.geometry is SCNBox) {
+                                    xResize!.position = SCNVector3(x: (xResize?.position.x)! + 0.5, y: (xResize?.position.y)!, z: (xResize?.position.z)!)
+                                    xDrag!.position = SCNVector3(x: (xDrag?.position.x)! + 0.5, y: (xDrag?.position.y)!, z: (xDrag?.position.z)!)
+                                }
+                            }
+                            self.prevXScale = Float(snapXScale)
                         }
-                        else {
-                            scale = SCNVector3(x: (resizedObject?.scale.x)! - resizeConstant, y: (resizedObject?.scale.y)!, z: (resizedObject?.scale.z)!)
-                            xResize!.position = SCNVector3(x: (xResize?.position.x)! - resizeConstant, y: (xResize?.position.y)!, z: (xResize?.position.z)!)
+                        else if (startTouch!.x > location2D.x) {
+                            if ((resizedObject?.scale.x)! > 1) {
+                                print("Down")
+                                let newXScale = Float(Double((resizedObject?.scale.x)! - resizeConstant))
+                                let deltaXScale = (resizedObject?.scale.x)! - newXScale
+                                print(deltaXScale)
+                                self.nonSnapXScale -= deltaXScale
+                                print(self.nonSnapXScale)
+                                let snapXScale = Double(self.nonSnapXScale).floor(nearest: 1)
+                                print(snapXScale)
+                                scale = SCNVector3(x: Float(snapXScale), y: (resizedObject?.scale.y)! , z: (resizedObject?.scale.z)!)
+
+                                if (self.prevXScale != Float(snapXScale)) {
+                                    if (resizedObject?.geometry is SCNSphere) {
+                                        xResize!.position = SCNVector3(x: (xResize?.position.x)! - 1, y: (xResize?.position.y)!, z: (xResize?.position.z)!)
+                                        xDrag!.position = SCNVector3(x: (xDrag?.position.x)! - 1, y: (xDrag?.position.y)!, z: (xDrag?.position.z)!)
+                                    }
+                                    else if (resizedObject?.geometry is SCNCylinder) {
+                                        xResize!.position = SCNVector3(x: (xResize?.position.x)! - 1, y: (xResize?.position.y)!, z: (xResize?.position.z)!)
+                                        xDrag!.position = SCNVector3(x: (xDrag?.position.x)! - 1, y: (xDrag?.position.y)!, z: (xDrag?.position.z)!)
+                                    }
+                                    else if (resizedObject?.geometry is SCNBox) {
+                                        xResize!.position = SCNVector3(x: (xResize?.position.x)! - 0.5, y: (xResize?.position.y)!, z: (xResize?.position.z)!)
+                                        xDrag!.position = SCNVector3(x: (xDrag?.position.x)! - 0.5, y: (xDrag?.position.y)!, z: (xDrag?.position.z)!)
+                                    }
+                                }
+                                self.prevXScale = Float(snapXScale)
+                            }
                         }
-                        startTouch = touch.location(in: scnView)
-                        //pos = SCNVector3Make(realLocation3D.x,(movedObject?.position.y)!, (movedObject?.position.z)!)
                     }else if(direction == "y"){
-                        if (startTouch!.y - touch.location(in: scnView).y > 0) {
-                            scale = SCNVector3(x: (resizedObject?.scale.x)! , y: (resizedObject?.scale.y)! + resizeConstant, z: (resizedObject?.scale.z)!)
-                            yResize!.position = SCNVector3(x: (yResize?.position.x)!, y: (yResize?.position.y)! + resizeConstant, z: (yResize?.position.z)!)
-                        } else {
-                            scale = SCNVector3(x: (resizedObject?.scale.x)! , y: (resizedObject?.scale.y)! - resizeConstant, z: (resizedObject?.scale.z)!)
-                            yResize!.position = SCNVector3(x: (yResize?.position.x)!, y: (yResize?.position.y)! - resizeConstant, z: (yResize?.position.z)!)
+                        if (startTouch!.y > location2D.y) {
+                            print("Up")
+                            let newYScale = Float(Double((resizedObject?.scale.y)! + resizeConstant))
+                            let deltaYScale = newYScale - (resizedObject?.scale.y)!
+                            print(deltaYScale)
+                            self.nonSnapYScale += deltaYScale
+                            print(self.nonSnapYScale)
+                            let snapYScale = Double(self.nonSnapYScale).floor(nearest: 1)
+                            print(snapYScale)
+                            
+                            scale = SCNVector3(x: (resizedObject?.scale.x)! , y: Float(snapYScale), z: (resizedObject?.scale.z)!)
+                            if (self.prevYScale != Float(snapYScale)) {
+                                if (resizedObject?.geometry is SCNSphere) {
+                                    yResize!.position = SCNVector3(x: (yResize?.position.x)!, y: (yResize?.position.y)! + 1, z: (yResize?.position.z)!)
+                                    yDrag!.position = SCNVector3(x: (yDrag?.position.x)!, y: (yDrag?.position.y)! + 1, z: (yDrag?.position.z)!)
+                                }
+                                else if (resizedObject?.geometry is SCNCylinder) {
+                                    yResize!.position = SCNVector3(x: (yResize?.position.x)!, y: (yResize?.position.y)! + 2, z: (yResize?.position.z)!)
+                                    yDrag!.position = SCNVector3(x: (yDrag?.position.x)!, y: (yDrag?.position.y)! + 2, z: (yDrag?.position.z)!)
+                                }
+                                else if (resizedObject?.geometry is SCNBox) {
+                                    yResize!.position = SCNVector3(x: (yResize?.position.x)!, y: (yResize?.position.y)! + 0.5, z: (yResize?.position.z)!)
+                                    yDrag!.position = SCNVector3(x: (yDrag?.position.x)!, y: (yDrag?.position.y)! + 0.5, z: (yDrag?.position.z)!)
+                                }
+                                
+                            }
+                            self.prevYScale = Float(snapYScale)
                         }
-                        //pos = SCNVector3Make((movedObject?.position.x)!, realLocation3D.y, (movedObject?.position.z)!)
-                    }else if(direction  == "z"){
-                        if (startTouch!.x - touch.location(in: scnView).x > 0) {
-                            scale = SCNVector3(x: (resizedObject?.scale.x)! , y: (resizedObject?.scale.y)!, z: (resizedObject?.scale.z)! + resizeConstant)
-                            zResize!.position = SCNVector3(x: (zResize?.position.x)!, y: (zResize?.position.y)!, z: (zResize?.position.z)! + resizeConstant)
-                        }
-                        else {
-                            scale = SCNVector3(x: (resizedObject?.scale.x)! , y: (resizedObject?.scale.y)!, z: (resizedObject?.scale.z)! - resizeConstant)
-                            zResize!.position = SCNVector3(x: (zResize?.position.x)!, y: (zResize?.position.y)!, z: (zResize?.position.z)! - resizeConstant)
+                        else if (startTouch!.y < location2D.y) {
+                            if ((resizedObject?.scale.y)! > 1) {
+                                print("Down")
+                                let newYScale = Float(Double((resizedObject?.scale.y)! - resizeConstant))
+                                let deltaYScale = (resizedObject?.scale.y)! - newYScale
+                                print(deltaYScale)
+                                self.nonSnapYScale -= deltaYScale
+                                print(self.nonSnapYScale)
+                                let snapYScale = Double(self.nonSnapYScale).floor(nearest: 1)
+                                print(snapYScale)
+
+                                scale = SCNVector3(x: (resizedObject?.scale.x)! , y: Float(snapYScale), z: (resizedObject?.scale.z)!)
+                                if (self.prevYScale != Float(snapYScale)) {
+                                    if (resizedObject?.geometry is SCNSphere) {
+                                        yResize!.position = SCNVector3(x: (yResize?.position.x)!, y: (yResize?.position.y)! - 1, z: (yResize?.position.z)!)
+                                        yDrag!.position = SCNVector3(x: (yDrag?.position.x)!, y: (yDrag?.position.y)! - 1, z: (yDrag?.position.z)!)
+                                    }
+                                    else if (resizedObject?.geometry is SCNCylinder) {
+                                        yResize!.position = SCNVector3(x: (yResize?.position.x)!, y: (yResize?.position.y)! - 2, z: (yResize?.position.z)!)
+                                        yDrag!.position = SCNVector3(x: (yDrag?.position.x)!, y: (yDrag?.position.y)! - 2, z: (yDrag?.position.z)!)
+                                    }
+                                    else if (resizedObject?.geometry is SCNBox) {
+                                        yResize!.position = SCNVector3(x: (yResize?.position.x)!, y: (yResize?.position.y)! - 0.5, z: (yResize?.position.z)!)
+                                        yDrag!.position = SCNVector3(x: (yDrag?.position.x)!, y: (yDrag?.position.y)! - 0.5, z: (yDrag?.position.z)!)
+                                    }
+                                }
+                                self.prevYScale = Float(snapYScale)
+                            }
                         }
                         startTouch = touch.location(in: scnView)
-                        //pos = SCNVector3Make((movedObject?.position.x)!, (movedObject?.position.y)!, realLocation3D.z)
+                    }else if(direction  == "z"){
+                        if (startTouch!.x > location2D.x) {
+                            print("Out")
+                            let newZScale = Float(Double((resizedObject?.scale.z)! + resizeConstant))
+                            let deltaZScale = newZScale - (resizedObject?.scale.z)!
+                            print(deltaZScale)
+                            self.nonSnapZScale += deltaZScale
+                            print(self.nonSnapZScale)
+                            let snapZScale = Double(self.nonSnapZScale).floor(nearest: 1)
+                            print(snapZScale)
+                            
+                            scale = SCNVector3(x: (resizedObject?.scale.x)!, y: (resizedObject?.scale.y)! , z: Float(snapZScale))
+                            
+                            if (self.prevZScale != Float(snapZScale)) {
+                                if (resizedObject?.geometry is SCNSphere) {
+                                    zResize!.position = SCNVector3(x: (zResize?.position.x)!, y: (zResize?.position.y)!, z: (zResize?.position.z)! + 1)
+                                    zDrag!.position = SCNVector3(x: (zDrag?.position.x)!, y: (zDrag?.position.y)!, z: (zDrag?.position.z)! + 1)
+                                }
+                                else if (resizedObject?.geometry is SCNCylinder) {
+                                    zResize!.position = SCNVector3(x: (zResize?.position.x)!, y: (zResize?.position.y)!, z: (zResize?.position.z)! + 1)
+                                    zDrag!.position = SCNVector3(x: (zDrag?.position.x)!, y: (zDrag?.position.y)!, z: (zDrag?.position.z)! + 1)
+                                }
+                                else if (resizedObject?.geometry is SCNBox) {
+                                    zResize!.position = SCNVector3(x: (zResize?.position.x)!, y: (zResize?.position.y)!, z: (zResize?.position.z)! + 0.5)
+                                    zDrag!.position = SCNVector3(x: (zDrag?.position.x)!, y: (zDrag?.position.y)!, z: (zDrag?.position.z)! + 0.5)
+                                }
+                            }
+                            self.prevZScale = Float(snapZScale)
+                        }
+                        else if (startTouch!.x < location2D.x) {
+                            if ((resizedObject?.scale.z)! > 1) {
+                                print("In")
+                                let newZScale = Float(Double((resizedObject?.scale.z)! - resizeConstant))
+                                let deltaZScale = (resizedObject?.scale.z)! - newZScale
+                                print(deltaZScale)
+                                self.nonSnapZScale -= deltaZScale
+                                print(self.nonSnapZScale)
+                                let snapZScale = Double(self.nonSnapZScale).floor(nearest: 1)
+                                print(snapZScale)
+                                scale = SCNVector3(x: (resizedObject?.scale.x)!, y: (resizedObject?.scale.y)! , z: Float(snapZScale))
+                                
+                                if (self.prevZScale != Float(snapZScale)) {
+                                    if (resizedObject?.geometry is SCNSphere) {
+                                        zResize!.position = SCNVector3(x: (zResize?.position.x)!, y: (zResize?.position.y)!, z: (zResize?.position.z)! - 1)
+                                        zDrag!.position = SCNVector3(x: (zDrag?.position.x)!, y: (zDrag?.position.y)!, z: (zDrag?.position.z)! - 1)
+                                    }
+                                    else if (resizedObject?.geometry is SCNCylinder) {
+                                        zResize!.position = SCNVector3(x: (zResize?.position.x)!, y: (zResize?.position.y)!, z: (zResize?.position.z)! - 1)
+                                        zDrag!.position = SCNVector3(x: (zDrag?.position.x)!, y: (zDrag?.position.y)!, z: (zDrag?.position.z)! - 1)
+                                    }
+                                    else if (resizedObject?.geometry is SCNBox) {
+                                        zResize!.position = SCNVector3(x: (zResize?.position.x)!, y: (zResize?.position.y)!, z: (zResize?.position.z)! - 0.5)
+                                        zDrag!.position = SCNVector3(x: (zDrag?.position.x)!, y: (zDrag?.position.y)!, z: (zDrag?.position.z)! - 0.5)
+                                    }
+                                }
+                                self.prevZScale = Float(snapZScale)
+                            }
+                        }
                     }
                     if (scale != nil) {
                         resizedObject?.scale = scale!
-//                        yDrag!.position = SCNVector3(pos!.x,pos!.y + 2,pos!.z)
-//                        zDrag!.position = SCNVector3(pos!.x,pos!.y,pos!.z + 2)
-
                     }
-
                 }
-                
             }
         }
     }
@@ -515,9 +717,9 @@ class StudioViewController: UIViewController {
         zResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 200.0 / 255.0, alpha: 1)
         direction = ""
         
-        scnView.scene?.rootNode.addChildNode(xResize!)
-        scnView.scene?.rootNode.addChildNode(yResize!)
-        scnView.scene?.rootNode.addChildNode(zResize!)
+//        scnView.scene?.rootNode.addChildNode(xResize!)
+//        scnView.scene?.rootNode.addChildNode(yResize!)
+//        scnView.scene?.rootNode.addChildNode(zResize!)
 
 //        xResize?.isHidden = false
 //        yResize?.isHidden = false
@@ -537,9 +739,9 @@ class StudioViewController: UIViewController {
         yResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 200.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
         zResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 200.0 / 255.0, alpha: 1)
         
-        scnView.scene?.rootNode.addChildNode(xResize!)
-        scnView.scene?.rootNode.addChildNode(yResize!)
-        scnView.scene?.rootNode.addChildNode(zResize!)
+//        scnView.scene?.rootNode.addChildNode(xResize!)
+//        scnView.scene?.rootNode.addChildNode(yResize!)
+//        scnView.scene?.rootNode.addChildNode(zResize!)
 //        xResize?.isHidden = false
 //        yResize?.isHidden = false
 //        zResize?.isHidden = false
@@ -606,3 +808,17 @@ class StudioViewController: UIViewController {
     }
 
 }
+
+extension Double {
+    func round(nearest: Double) -> Double {
+        let n = 1/nearest
+        let numberToRound = self * n
+        return numberToRound.rounded() / n
+    }
+    
+    func floor(nearest: Double) -> Double {
+        let intDiv = Double(Int(self / nearest))
+        return intDiv * nearest
+    }
+}
+

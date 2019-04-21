@@ -47,7 +47,7 @@ class ShapeManager {
     func spawnCylinder() -> SCNNode{
         print("spawning circle")
         let scnView = viewController.view as! SCNView
-        let cylinderGeometry = SCNCylinder(radius: 1, height: 5)
+        let cylinderGeometry = SCNCylinder(radius: 1, height: 4)
         let r = 0.9
         let g = 0.9
         let b = 0.9
