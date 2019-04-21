@@ -34,7 +34,7 @@ class ToggleToolBarView: UIView{
         self.neuralNetworkButton = UIButton(frame: CGRect(x: 3*buttonSize, y: 0, width: buttonSize, height: buttonSize)) //neural Network
         self.sensorsButton = UIButton(frame: CGRect(x: 4*buttonSize, y: 0, width: buttonSize, height: buttonSize)) //sensors
         
-        let toolbar = CGRect(x:0,y:800,width:800,height:buttonSize)
+        var toolbar = CGRect(x:0,y:800,width:800,height:buttonSize)
         super.init(frame: toolbar)
         backgroundColor = UIColor.darkGray
         

@@ -134,6 +134,7 @@ class StudioViewController: UIViewController {
     var currentAngle: Float = 0.0
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         // create a new scene
@@ -265,16 +266,9 @@ class StudioViewController: UIViewController {
         utilityNodes.append(zDrag!)
         dragNodes.append(zDrag!)
         
-        log(message: "success")
         
-        
+        updatePadding()
     }
-    
-    func log(message:String){
-        print(message)
-    }
-    
-    
     
     var movedObject:SCNNode?
     var direction = ""
@@ -434,6 +428,20 @@ class StudioViewController: UIViewController {
             return .allButUpsideDown
         } else {
             return .all
+        }
+    }
+    
+    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
+        updatePadding()
+    }
+    
+    func updatePadding(){
+        let phoneWidth = view.bounds.maxX - view.bounds.minX;
+        let phoneHeight = view.bounds.maxY - view.bounds.minY;
+        getToggleToolBarView().frame = CGRect(x:Int((phoneWidth - 76*5)/2),y:Int(phoneHeight - 75),width:75 * 5,height:75)
+        
+        if(toolBarManager!.current() != nil){
+            toolBarManager!.current()!.frame = CGRect(x:Int((phoneWidth - 76*4)/2),y:Int(phoneHeight - 75*2),width:75 * 4,height:75)
         }
     }
 
