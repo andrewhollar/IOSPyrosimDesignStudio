@@ -66,7 +66,8 @@ class StudioViewController: UIViewController {
         xDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 150.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 0)
         yDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 150.0 / 255.0, blue: 30.0 / 255.0, alpha: 0)
         zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 150.0 / 255.0, alpha: 0)
-
+    }
+    
     var xResize: SCNNode?
     func getXResize() -> SCNNode?{
         return xResize
