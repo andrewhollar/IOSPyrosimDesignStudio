@@ -419,7 +419,9 @@ class StudioViewController: UIViewController {
             if hitResults.count > 0{
                 let result = hitResults[0]
                 let node = result.node
-                if dragNodes.contains(node) && currentShape != nil{
+                //Check if nodes
+                if dragNodes.contains(node) && currentShape != nil && (node.geometry?.firstMaterial?.diffuse.contents as! UIColor).cgColor.alpha == 1{
+
                     scnView.allowsCameraControl = false
                     if(node == xDrag!){
                         direction = "x"
@@ -724,29 +726,36 @@ class StudioViewController: UIViewController {
 
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let scnView = self.view as! SCNView
-        movedObject = nil
-        xDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 150.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
-        yDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 150.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
-        zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 150.0 / 255.0, alpha: 1)
         
-        xResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 200.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
-        yResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 200.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
-        zResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 200.0 / 255.0, alpha: 1)
+        let scnView = self.view as! SCNView
+        if(movedObject != nil){
+            movedObject = nil
+            xDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 150.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+            yDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 150.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+            zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 150.0 / 255.0, alpha: 1)
+            
+            xResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 200.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+            yResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 200.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+            zResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 200.0 / 255.0, alpha: 1)
+        }
+        
         direction = ""
         scnView.allowsCameraControl = true
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         let scnView = self.view as! SCNView
-        movedObject = nil
-        xDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 150.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
-        yDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 150.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
-        zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 150.0 / 255.0, alpha: 1)
+        if(movedObject != nil){
+            movedObject = nil
+            xDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 150.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+            yDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 150.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+            zDrag!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 150.0 / 255.0, alpha: 1)
+            
+            xResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 200.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+            yResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 200.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
+            zResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 200.0 / 255.0, alpha: 1)
+        }
         
-        xResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 200.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
-        yResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 200.0 / 255.0, blue: 30.0 / 255.0, alpha: 1)
-        zResize!.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 200.0 / 255.0, alpha: 1)
     
         direction = ""
         scnView.allowsCameraControl = true
