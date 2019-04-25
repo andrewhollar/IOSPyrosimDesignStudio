@@ -113,20 +113,22 @@ class StudioViewController: UIViewController {
         shapesTransparent = b
     }
     func setCurrentShape(node: SCNNode){
+        let scnView = self.view as! SCNView
+        
         positionDisplayView?.updatePositionLabels(controller: self)
         showDraggers()
         
-        xDrag?.position.x = node.position.x + 2
-        xDrag?.position.y = node.position.y
-        xDrag?.position.z = node.position.z
-        
-        yDrag?.position.x = node.position.x
-        yDrag?.position.y = node.position.y + 2
-        yDrag?.position.z = node.position.z
-        
-        zDrag?.position.x = node.position.x
-        zDrag?.position.y = node.position.y
-        zDrag?.position.z = node.position.z + 2
+//        xDrag?.position.x = node.position.x + 2
+//        xDrag?.position.y = node.position.y
+//        xDrag?.position.z = node.position.z
+//
+//        yDrag?.position.x = node.position.x
+//        yDrag?.position.y = node.position.y + 2
+//        yDrag?.position.z = node.position.z
+//
+//        zDrag?.position.x = node.position.x
+//        zDrag?.position.y = node.position.y
+//        zDrag?.position.z = node.position.z + 2
         
         if node.geometry is SCNSphere || node.geometry is SCNBox {
             xDrag?.position.x = node.position.x + node.scale.x + 1
@@ -181,13 +183,25 @@ class StudioViewController: UIViewController {
             zResize?.position.x = node.position.x
             zResize?.position.y = node.position.y
             zResize?.position.z = node.position.z + node.scale.z + 3
+            
         }
         if(node.isKind(of: Joint.self)){
             setShapesTransparent(b: true)
+            
+            xResize?.removeFromParentNode()
+            yResize?.removeFromParentNode()
+            zResize?.removeFromParentNode()
+            
         }else{
             setShapesTransparent(b: false)
+            if (scnView.scene?.rootNode.childNode(withName: "xResize", recursively: true) != nil) {
+            }
+            else {
+                scnView.scene?.rootNode.addChildNode(xResize!)
+                scnView.scene?.rootNode.addChildNode(yResize!)
+                scnView.scene?.rootNode.addChildNode(zResize!)
+            }
         }
-        
         currentShape = node
         updateShapeColors()
         hierarchyView!.update()
@@ -368,6 +382,7 @@ class StudioViewController: UIViewController {
         dragNodes.append(zDrag!)
         
         xResize = getShapeManager().spawnSphere()
+        xResize?.name = "xResize"
         xResize!.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0,green:0,blue:0,alpha:0)
         xResize!.scale.x = 0.5
         xResize!.scale.y = 0.5
@@ -376,6 +391,7 @@ class StudioViewController: UIViewController {
         resizeNodes.append(xResize!)
         
         yResize = getShapeManager().spawnSphere()
+        yResize?.name = "yResize"
         yResize!.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0,green:0,blue:0,alpha:0)
         yResize!.scale.x = 0.5
         yResize!.scale.y = 0.5
@@ -384,6 +400,7 @@ class StudioViewController: UIViewController {
         resizeNodes.append(yResize!)
         
         zResize = getShapeManager().spawnSphere()
+        zResize?.name = "zResize"
         zResize!.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0,green:0,blue:0,alpha:0)
         zResize!.scale.x = 0.5
         zResize!.scale.y = 0.5
