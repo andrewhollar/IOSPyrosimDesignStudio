@@ -829,7 +829,11 @@ class StudioViewController: UIViewController {
         
         if(toolBarManager!.current() != nil){
             toolBarManager!.current()!.frame = CGRect(x:Int((phoneWidth - 76*4)/2),y:Int(phoneHeight - 75*2),width:75 * 4,height:75)
+            if(toolBarManager!.current()!.isKind(of: RotationToolBar.self)){
+                (toolBarManager!.current()! as! RotationToolBar).scaleSliders(height: 75)
+            }
         }
+    
     }
 }
 
