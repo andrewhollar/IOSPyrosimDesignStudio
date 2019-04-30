@@ -42,9 +42,18 @@ class ToolBarManager {
         viewController.updatePadding();
     }
     
+    func removeCurrent(){
+        if(currentToolBar != nil){
+            currentToolBar!.removeFromSuperview()
+        }
+        viewController.updatePadding();
+    }
+    
     func setCurrent(name: String){
         if(nameToToolBar[name] != nil){
             setCurrent(toolbar: nameToToolBar[name]!)
+        }else{
+            removeCurrent()
         }
     }
     
