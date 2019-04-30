@@ -36,6 +36,14 @@ class ToolBarManager {
         if(currentToolBar != toolbar){
             currentToolBar = toolbar
             viewController.view.addSubview(toolbar)
+            if (currentToolBar is RotationToolBar) {
+                let rotationToolbar = currentToolBar as! RotationToolBar
+                print("Rotation Toolbar Selected")
+                rotationToolbar.xAxisSlider!.setValue(0, animated: false)
+                rotationToolbar.yAxisSlider!.setValue(0, animated: false)
+                rotationToolbar.zAxisSlider!.setValue(0, animated: false)
+
+            }
         }else{
             currentToolBar = nil;
         }
@@ -53,7 +61,7 @@ class ToolBarManager {
         if(nameToToolBar[name] != nil){
             setCurrent(toolbar: nameToToolBar[name]!)
         }else{
-            removeCurrent()
+            //removeCurrent()
         }
     }
     

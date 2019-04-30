@@ -85,14 +85,15 @@ class RotationToolBar : UIView{
     @objc
     //Setting up Scroller Sections
     func rotateAxis(sender: UISlider){
+        let viewC = viewController.view as! SCNView
+        viewC.allowsCameraControl = false
+
         //print("Value is: ", Double(sender.value))
         if(viewController.getCurrentShape() == nil){
             print("No Object Selected")
+
         }
         else{
-            let viewC = viewController.view as! SCNView
-            //Disable camera control whil euser is adjusting the sliders.
-            viewC.allowsCameraControl = false
 
             let myEuler = viewController.getCurrentShape()!.eulerAngles
             
@@ -323,9 +324,8 @@ class RotationToolBar : UIView{
                 //We are in the same section
                 //No Need for rotation!
             }
-            viewC.allowsCameraControl = true
         }
-
+        viewC.allowsCameraControl = true
     }
     
     ///////// MATH FUNCTIONS FOR QUATERNION/EULER VECTOR TRANSFORMATIONS /////////

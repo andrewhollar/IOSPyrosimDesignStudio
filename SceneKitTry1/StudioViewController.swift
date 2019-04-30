@@ -206,6 +206,13 @@ class StudioViewController: UIViewController {
         updateShapeColors()
         hierarchyView!.update()
 
+        if self.toolBarManager?.currentToolBar is RotationToolBar {
+            let rotationToolbar = self.toolBarManager?.currentToolBar as! RotationToolBar
+            rotationToolbar.xAxisSlider!.setValue(0, animated: false)
+            rotationToolbar.yAxisSlider!.setValue(0, animated: false)
+            rotationToolbar.zAxisSlider!.setValue(0, animated: false)
+        }
+        
         self.nonSnapXScale = (currentShape?.scale.x)!
         self.nonSnapYScale = (currentShape?.scale.y)!
         self.nonSnapZScale = (currentShape?.scale.z)!
