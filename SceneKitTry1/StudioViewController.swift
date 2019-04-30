@@ -255,13 +255,15 @@ class StudioViewController: UIViewController {
         
         super.viewDidLoad()
         
+       
         // create a new scene
         //let scene = SCNScene()
         
         
         scene = SCNScene(named: "main.scn")
         
-
+        let planeNode:SCNNode = scene.rootNode.childNode(withName: "plane", recursively: true)!
+        utilityNodes.append(planeNode)
         //create classes
         shapeManager = ShapeManager(controller: self)
         toolBarManager = ToolBarManager(controller: self)
