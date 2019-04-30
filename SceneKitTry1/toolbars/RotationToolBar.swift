@@ -90,6 +90,10 @@ class RotationToolBar : UIView{
             print("No Object Selected")
         }
         else{
+            let viewC = viewController.view as! SCNView
+            //Disable camera control whil euser is adjusting the sliders.
+            viewC.allowsCameraControl = false
+
             let myEuler = viewController.getCurrentShape()!.eulerAngles
             
             //Determining desired rotation
@@ -319,6 +323,7 @@ class RotationToolBar : UIView{
                 //We are in the same section
                 //No Need for rotation!
             }
+            viewC.allowsCameraControl = true
         }
 
     }
