@@ -11,6 +11,7 @@ import QuartzCore
 import SceneKit
 
 class StudioViewController: UIViewController {
+    var scene:SCNScene!
     
     var shapeManager: ShapeManager?
     func getShapeManager() -> ShapeManager{
@@ -137,7 +138,11 @@ class StudioViewController: UIViewController {
         super.viewDidLoad()
         
         // create a new scene
-        let scene = SCNScene()
+        //let scene = SCNScene()
+        
+        
+        scene = SCNScene(named: "main.scn")
+        
 
         //create classes
         shapeManager = ShapeManager(controller: self)

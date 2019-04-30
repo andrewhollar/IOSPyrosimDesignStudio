@@ -20,6 +20,9 @@
 		406D75EA224EC10100C583B9 /* ShapeSelectorToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E9224EC10100C583B9 /* ShapeSelectorToolBar.swift */; };
 		4092EE892253A9D100A0D2C8 /* JointToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4092EE882253A9D100A0D2C8 /* JointToolBar.swift */; };
 		409EBBFC22287744008BC5E7 /* ShapeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409EBBFB22287744008BC5E7 /* ShapeManager.swift */; };
+		6B18897F226CE0780096FBBA /* main.scn in Resources */ = {isa = PBXBuildFile; fileRef = 6B18897E226CE0780096FBBA /* main.scn */; };
+		6B188981226CE3A10096FBBA /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B188980226CE3A10096FBBA /* grid.png */; };
+		6B188983226CE89F0096FBBA /* grid_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B188982226CE89F0096FBBA /* grid_white.png */; };
 		B616B4B02252DE98005BB371 /* RotationToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B616B4AF2252DE98005BB371 /* RotationToolBar.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +61,9 @@
 		406D75E9224EC10100C583B9 /* ShapeSelectorToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeSelectorToolBar.swift; sourceTree = "<group>"; };
 		4092EE882253A9D100A0D2C8 /* JointToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JointToolBar.swift; sourceTree = "<group>"; };
 		409EBBFB22287744008BC5E7 /* ShapeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeManager.swift; sourceTree = "<group>"; };
+		6B18897E226CE0780096FBBA /* main.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = main.scn; sourceTree = "<group>"; };
+		6B188980226CE3A10096FBBA /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grid.png; path = ../../../../Downloads/grid.png; sourceTree = "<group>"; };
+		6B188982226CE89F0096FBBA /* grid_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grid_white.png; path = ../../../../Downloads/grid_white.png; sourceTree = "<group>"; };
 		B616B4AF2252DE98005BB371 /* RotationToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationToolBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,11 +113,14 @@
 		1AACAF07220DF05B00DB2560 /* SceneKitTry1 */ = {
 			isa = PBXGroup;
 			children = (
+				6B188982226CE89F0096FBBA /* grid_white.png */,
+				6B188980226CE3A10096FBBA /* grid.png */,
 				406D75E2224EB2C900C583B9 /* views */,
 				409EBBFA22287736008BC5E7 /* managers */,
 				409EBBF722286900008BC5E7 /* toolbars */,
 				1AACAF08220DF05B00DB2560 /* AppDelegate.swift */,
 				1AACAF0C220DF05B00DB2560 /* StudioViewController.swift */,
+				6B18897E226CE0780096FBBA /* main.scn */,
 				1AACAF0E220DF05B00DB2560 /* Main.storyboard */,
 				1AACAF11220DF05C00DB2560 /* Assets.xcassets */,
 				1AACAF13220DF05C00DB2560 /* LaunchScreen.storyboard */,
@@ -254,9 +263,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B18897F226CE0780096FBBA /* main.scn in Resources */,
+				6B188981226CE3A10096FBBA /* grid.png in Resources */,
 				1AACAF15220DF05C00DB2560 /* LaunchScreen.storyboard in Resources */,
 				1AACAF12220DF05C00DB2560 /* Assets.xcassets in Resources */,
 				1AACAF10220DF05B00DB2560 /* Main.storyboard in Resources */,
+				6B188983226CE89F0096FBBA /* grid_white.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
