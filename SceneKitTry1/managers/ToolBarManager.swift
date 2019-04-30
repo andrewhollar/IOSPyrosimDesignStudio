@@ -39,6 +39,7 @@ class ToolBarManager {
         }else{
             currentToolBar = nil;
         }
+        viewController.updatePadding();
     }
     
     func setCurrent(name: String){

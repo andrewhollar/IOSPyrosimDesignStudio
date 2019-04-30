@@ -40,6 +40,7 @@ class ShapeSelectorToolBar: UIView{
         sphereButton.setImage(UIImage(named: "sphereButton"), for: UIControl.State.normal)
         addSubview(sphereButton)
         
+        
         let cylinderButton = UIButton(frame: CGRect(x: buttonSize, y: 0, width: buttonSize, height: buttonSize)) //cylinder button
         cylinderButton.addTarget(self, action: #selector(addCylinder), for: .primaryActionTriggered)
         cylinderButton.setImage(UIImage(named: "cylinderButton"), for: UIControl.State.normal)

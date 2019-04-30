@@ -19,20 +19,6 @@ class ShapeManager {
         self.viewController = controller    }
     
     func spawnSphere() -> SCNNode{
-        print("spawning circle")
-        let scnView = viewController.view as! SCNView
-        let sphereGeometry = SCNSphere(radius: 1)
-        let r = 0.9
-        let g = 0.9
-        let b = 0.9
-        sphereGeometry.firstMaterial?.diffuse.contents = UIColor.init(red:CGFloat(r), green:CGFloat(g), blue:CGFloat(b), alpha:1)
-        let sphereNode = SCNNode(geometry: sphereGeometry)
-        scnView.scene?.rootNode.addChildNode(sphereNode)
-        return sphereNode
-    }
-    
-    func spawnCircle() -> SCNNode{
-        print("spawning circle")
         let scnView = viewController.view as! SCNView
         let sphereGeometry = SCNSphere(radius: 1)
         let r = 0.9
@@ -45,7 +31,6 @@ class ShapeManager {
     }
     
     func spawnCylinder() -> SCNNode{
-        print("spawning circle")
         let scnView = viewController.view as! SCNView
         let cylinderGeometry = SCNCylinder(radius: 1, height: 5)
         let r = 0.9
@@ -58,7 +43,6 @@ class ShapeManager {
     }
     
     func spawnRect() -> SCNNode{
-        print("spawning rectangle")
         let scnView = viewController.view as! SCNView
         let rectangleGeometry = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 0)
         let rectangleNode = SCNNode(geometry: rectangleGeometry)
@@ -68,7 +52,6 @@ class ShapeManager {
     }
     
     func spawnJoint() -> Joint{
-        print("spawning joint")
         let scnView = viewController.view as! SCNView
         let jointGeometry = SCNSphere(radius: 5)
         let joint = Joint(jointGeometry: jointGeometry)
@@ -80,6 +63,7 @@ class ShapeManager {
     }
     
     func removeNode(node: SCNNode){
+        //Remove SceneKit Node
         node.removeFromParentNode()
     }
     

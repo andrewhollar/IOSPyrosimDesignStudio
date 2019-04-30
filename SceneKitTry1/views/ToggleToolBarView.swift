@@ -16,10 +16,10 @@ class ToggleToolBarView: UIView{
     var viewController: StudioViewController
     var toolBarManager: ToolBarManager
     var shapeButton: UIButton
-    var moveButton: UIButton
     var rotationButton: UIButton
     var neuralNetworkButton: UIButton
     var sensorsButton: UIButton
+    
     var buttons = [UIButton]()
     
     var buttonSize = 75
@@ -29,12 +29,11 @@ class ToggleToolBarView: UIView{
         self.viewController = controller
         self.toolBarManager = controller.getToolBarManager()
         self.shapeButton = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)) //sphere button
-        self.moveButton = UIButton(frame: CGRect(x: buttonSize, y: 0, width: buttonSize, height: buttonSize)) //rectangle button
-        self.rotationButton = UIButton(frame: CGRect(x: 2*buttonSize, y:0, width: buttonSize, height: buttonSize))
-        self.neuralNetworkButton = UIButton(frame: CGRect(x: 3*buttonSize, y: 0, width: buttonSize, height: buttonSize)) //neural Network
-        self.sensorsButton = UIButton(frame: CGRect(x: 4*buttonSize, y: 0, width: buttonSize, height: buttonSize)) //sensors
+        self.rotationButton = UIButton(frame: CGRect(x: 1*buttonSize, y:0, width: buttonSize, height: buttonSize))
+        self.neuralNetworkButton = UIButton(frame: CGRect(x: 2*buttonSize, y: 0, width: buttonSize, height: buttonSize)) //neural Network
+        self.sensorsButton = UIButton(frame: CGRect(x: 3*buttonSize, y: 0, width: buttonSize, height: buttonSize)) //sensors
         
-        let toolbar = CGRect(x:0,y:800,width:800,height:buttonSize)
+        var toolbar = CGRect(x:0,y:800,width:800,height:buttonSize)
         super.init(frame: toolbar)
         backgroundColor = UIColor.darkGray
         
@@ -42,11 +41,6 @@ class ToggleToolBarView: UIView{
         shapeButton.setImage(UIImage(named: "ShapesButton"), for: UIControl.State.normal)
         addSubview(shapeButton)
         buttons.append(shapeButton)
-        
-        moveButton.addTarget(self, action: #selector(toggleMovement), for: .primaryActionTriggered)
-        moveButton.setImage(UIImage(named: "moveButton"), for: UIControl.State.normal)
-        addSubview(moveButton)
-        buttons.append(moveButton)
         
         neuralNetworkButton.addTarget(self, action: #selector(toggleNeuralNetwork), for: .primaryActionTriggered)
         neuralNetworkButton.setImage(UIImage(named: "neuralNetworkButton"), for: UIControl.State.normal)
