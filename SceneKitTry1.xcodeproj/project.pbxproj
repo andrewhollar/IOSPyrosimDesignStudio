@@ -21,6 +21,7 @@
 		406D75EA224EC10100C583B9 /* ShapeSelectorToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E9224EC10100C583B9 /* ShapeSelectorToolBar.swift */; };
 		4092EE892253A9D100A0D2C8 /* JointToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4092EE882253A9D100A0D2C8 /* JointToolBar.swift */; };
 		409EBBFC22287744008BC5E7 /* ShapeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409EBBFB22287744008BC5E7 /* ShapeManager.swift */; };
+		40C2623F22788FF00038AEA0 /* ObjectGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C2623E22788FF00038AEA0 /* ObjectGroup.swift */; };
 		B616B4B02252DE98005BB371 /* RotationToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B616B4AF2252DE98005BB371 /* RotationToolBar.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		406D75E9224EC10100C583B9 /* ShapeSelectorToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeSelectorToolBar.swift; sourceTree = "<group>"; };
 		4092EE882253A9D100A0D2C8 /* JointToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JointToolBar.swift; sourceTree = "<group>"; };
 		409EBBFB22287744008BC5E7 /* ShapeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeManager.swift; sourceTree = "<group>"; };
+		40C2623E22788FF00038AEA0 /* ObjectGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectGroup.swift; sourceTree = "<group>"; };
 		B616B4AF2252DE98005BB371 /* RotationToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationToolBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,6 +122,7 @@
 				1AACAF13220DF05C00DB2560 /* LaunchScreen.storyboard */,
 				1AACAF16220DF05C00DB2560 /* Info.plist */,
 				406D75E0224EB27000C583B9 /* Robot.swift */,
+				40C2623E22788FF00038AEA0 /* ObjectGroup.swift */,
 			);
 			path = SceneKitTry1;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40C2623F22788FF00038AEA0 /* ObjectGroup.swift in Sources */,
 				406D75E1224EB27000C583B9 /* Robot.swift in Sources */,
 				409EBBFC22287744008BC5E7 /* ShapeManager.swift in Sources */,
 				4016A9DB226CE80C00597026 /* PositionDisplayView.swift in Sources */,
