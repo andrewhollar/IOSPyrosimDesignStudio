@@ -18,7 +18,8 @@
 		406D75E4224EB36900C583B9 /* HierarchyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E3224EB36900C583B9 /* HierarchyView.swift */; };
 		406D75E6224EB37600C583B9 /* ToggleToolBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E5224EB37600C583B9 /* ToggleToolBarView.swift */; };
 		406D75EA224EC10100C583B9 /* ShapeSelectorToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75E9224EC10100C583B9 /* ShapeSelectorToolBar.swift */; };
-		4092EE892253A9D100A0D2C8 /* JointToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4092EE882253A9D100A0D2C8 /* JointToolBar.swift */; };
+		408F0877227BB41100BA6DB1 /* SensorToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408F0876227BB41100BA6DB1 /* SensorToolBar.swift */; };
+		408F0879227BB45900BA6DB1 /* NeuronToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408F0878227BB45900BA6DB1 /* NeuronToolBar.swift */; };
 		409EBBFC22287744008BC5E7 /* ShapeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409EBBFB22287744008BC5E7 /* ShapeManager.swift */; };
 		6B18897F226CE0780096FBBA /* main.scn in Resources */ = {isa = PBXBuildFile; fileRef = 6B18897E226CE0780096FBBA /* main.scn */; };
 		B616B4B02252DE98005BB371 /* RotationToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B616B4AF2252DE98005BB371 /* RotationToolBar.swift */; };
@@ -58,7 +59,8 @@
 		406D75E3224EB36900C583B9 /* HierarchyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HierarchyView.swift; sourceTree = "<group>"; };
 		406D75E5224EB37600C583B9 /* ToggleToolBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleToolBarView.swift; sourceTree = "<group>"; };
 		406D75E9224EC10100C583B9 /* ShapeSelectorToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeSelectorToolBar.swift; sourceTree = "<group>"; };
-		4092EE882253A9D100A0D2C8 /* JointToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JointToolBar.swift; sourceTree = "<group>"; };
+		408F0876227BB41100BA6DB1 /* SensorToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorToolBar.swift; sourceTree = "<group>"; };
+		408F0878227BB45900BA6DB1 /* NeuronToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuronToolBar.swift; sourceTree = "<group>"; };
 		409EBBFB22287744008BC5E7 /* ShapeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeManager.swift; sourceTree = "<group>"; };
 		6B18897E226CE0780096FBBA /* main.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = main.scn; sourceTree = "<group>"; };
 		B616B4AF2252DE98005BB371 /* RotationToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationToolBar.swift; sourceTree = "<group>"; };
@@ -142,7 +144,8 @@
 			children = (
 				406D75E9224EC10100C583B9 /* ShapeSelectorToolBar.swift */,
 				B616B4AF2252DE98005BB371 /* RotationToolBar.swift */,
-				4092EE882253A9D100A0D2C8 /* JointToolBar.swift */,
+				408F0876227BB41100BA6DB1 /* SensorToolBar.swift */,
+				408F0878227BB45900BA6DB1 /* NeuronToolBar.swift */,
 			);
 			path = toolbars;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				408F0879227BB45900BA6DB1 /* NeuronToolBar.swift in Sources */,
 				406D75E1224EB27000C583B9 /* Robot.swift in Sources */,
 				409EBBFC22287744008BC5E7 /* ShapeManager.swift in Sources */,
 				4016A9DB226CE80C00597026 /* PositionDisplayView.swift in Sources */,
@@ -298,8 +302,8 @@
 				406D75EA224EC10100C583B9 /* ShapeSelectorToolBar.swift in Sources */,
 				406D75DF224EAE1700C583B9 /* ToolBarManager.swift in Sources */,
 				B616B4B02252DE98005BB371 /* RotationToolBar.swift in Sources */,
-				4092EE892253A9D100A0D2C8 /* JointToolBar.swift in Sources */,
 				1AACAF09220DF05B00DB2560 /* AppDelegate.swift in Sources */,
+				408F0877227BB41100BA6DB1 /* SensorToolBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

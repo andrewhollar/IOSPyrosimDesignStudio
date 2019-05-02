@@ -269,7 +269,8 @@ class StudioViewController: UIViewController {
         toolBarManager = ToolBarManager(controller: self)
         toolBarManager!.addToolBar(name: "shapeSelector", toolbar: ShapeSelectorToolBar(controller: self))
         toolBarManager!.addToolBar(name: "rotation", toolbar: RotationToolBar(controller: self))
-        toolBarManager!.addToolBar(name: "joint", toolbar: JointToolBar(controller: self))
+        toolBarManager!.addToolBar(name: "sensors", toolbar: SensorToolBar(controller: self))
+        toolBarManager!.addToolBar(name: "neuralNetwork", toolbar: NeuronToolBar(controller: self))
 
         toggleToolBarView = ToggleToolBarView(controller: self)
         hierarchyView = HierarchyView(controller: self)
@@ -431,7 +432,6 @@ class StudioViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let scnView = self.view as! SCNView
-        print("new touch")
         if let touch = touches.first {
 //            let tapPoint: CGPoint = touch.location(in: scnView)
 //            let result = scnView.hitTest(tapPoint, options: nil)
