@@ -30,6 +30,15 @@ class SensorToolBar: UIView{
     }
     
     func populateWithButtons(){
+        let sphereButton = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)) //sphere button
+        sphereButton.addTarget(self, action: #selector(toggleSensorToggleActive), for: .primaryActionTriggered)
+        sphereButton.setImage(UIImage(named: "sphereButton"), for: UIControl.State.normal)
+        addSubview(sphereButton)
+    }
+    
+    @objc
+    func toggleSensorToggleActive() {
+        viewController.toggleSensorToggleActive()
     }
     
 }

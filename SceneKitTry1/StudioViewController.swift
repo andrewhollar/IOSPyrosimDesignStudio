@@ -48,6 +48,11 @@ class StudioViewController: UIViewController {
         return robot
     }
     
+    var isSensorToggleActive = false
+    func toggleSensorToggleActive(){
+        isSensorToggleActive = !(isSensorToggleActive)
+    }
+    
     var xDrag: SCNNode?
     func getXDrag() -> SCNNode?{
         return xDrag
@@ -114,6 +119,15 @@ class StudioViewController: UIViewController {
         shapesTransparent = b
     }
     func setCurrentShape(node: SCNNode){
+        
+        if(isSensorToggleActive){
+            if(!node.isKind(of: Joint.self)){
+                toggleSensor(node: node)
+            }
+            hierarchyView!.update()
+            return
+        }
+        
         let scnView = self.view as! SCNView
         
         positionDisplayView?.updatePositionLabels(controller: self)
@@ -212,11 +226,40 @@ class StudioViewController: UIViewController {
         self.nonSnapZScale = (currentShape?.scale.z)!
     }
 
+    func toggleSensor(node: SCNNode){
+        if((node.geometry?.firstMaterial?.diffuse.contents as! UIColor) == UIColor.green){
+            node.geometry?.firstMaterial?.diffuse.contents = UIColor.green
+            if(node == currentShape!){
+                if(areShapesTransparent()){
+                    node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0.6,blue:0.3,alpha:0.7)
+                }else{
+                   node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0.6,blue:0.3,alpha:1)
+                }
+                
+            }else{
+                if(areShapesTransparent()){
+                    node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0.9,blue:0.9,alpha:0.7)
+                }else{
+                    node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0.9,blue:0.9,alpha:1)
+                }
+            }
+        }else{
+            if(areShapesTransparent()){
+                node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.3,green:0.9,blue:0.3,alpha:0.7)
+            }else{
+                node.geometry?.firstMaterial?.diffuse.contents = UIColor.green
+            }
+            
+        }
+    }
     
     func setColor(node: SCNNode){
         let currentShape = getCurrentShape()
         if(areShapesTransparent()){
-            if(currentShape != nil && currentShape! == node){
+            if((node.geometry?.firstMaterial?.diffuse.contents as! UIColor) == UIColor.green ||
+                (node.geometry?.firstMaterial?.diffuse.contents as! UIColor) == UIColor.init(red:0.3,green:0.9,blue:0.3,alpha:0.7)){
+               node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.3,green:0.9,blue:0.3,alpha:0.7)
+            }else if(currentShape != nil && currentShape! == node){
                 node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0.6,blue:0.3,alpha:1)
             }else if(node.isKind(of: Joint.self)){
                 node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0,blue:0,alpha:1)
@@ -224,7 +267,11 @@ class StudioViewController: UIViewController {
                 node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0.9,blue:0.9,alpha:0.7)
             }
         }else{
-            if(currentShape != nil && currentShape! == node){
+            if((node.geometry?.firstMaterial?.diffuse.contents as! UIColor) == UIColor.green ||
+                (node.geometry?.firstMaterial?.diffuse.contents as! UIColor) == UIColor.init(red:0.3,green:0.9,blue:0.3,alpha:0.7)){
+                node.geometry?.firstMaterial?.diffuse.contents = UIColor.green
+                //do nothing
+            }else if(currentShape != nil && currentShape! == node){
                 node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0.6,blue:0.3,alpha:1)
             }else if(node.isKind(of: Joint.self)){
                 node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red:0.9,green:0,blue:0,alpha:1)
