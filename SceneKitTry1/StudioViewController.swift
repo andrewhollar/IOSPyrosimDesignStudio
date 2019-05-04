@@ -33,6 +33,11 @@ class StudioViewController: UIViewController {
         return toggleToolBarView!
     }
     
+    var menuView: MenuView?
+    func getMenuView() -> MenuView{
+        return menuView!
+    }
+    
     var segmentedControl: UISegmentedControl?
     func getSegmentedControl() -> UISegmentedControl {
         return segmentedControl!
@@ -321,9 +326,11 @@ class StudioViewController: UIViewController {
 
         toggleToolBarView = ToggleToolBarView(controller: self)
         hierarchyView = HierarchyView(controller: self)
+        menuView = MenuView(controller: self)
         
         view.addSubview(toggleToolBarView!)
         view.addSubview(hierarchyView!)
+        view.addSubview(menuView!)
         
         // create camera
         var cameraNode: SCNNode = SCNNode()
@@ -404,7 +411,7 @@ class StudioViewController: UIViewController {
         segmentedControl!.addTarget(self, action: #selector(StudioViewController.cameraChanged(_:)), for: .valueChanged)
         scnView.addSubview(segmentedControl!)
         
-        segmentedControl!.rightAnchor.constraint(equalTo: view.rightAnchor, constant:  -15).isActive = true
+        segmentedControl!.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant:  0).isActive = true
         segmentedControl!.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
         segmentedControl!.topAnchor.constraint(equalTo: view.topAnchor, constant: 15).isActive = true
         

@@ -10,7 +10,6 @@
 		1AACAF09220DF05B00DB2560 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AACAF08220DF05B00DB2560 /* AppDelegate.swift */; };
 		1AACAF0D220DF05B00DB2560 /* StudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AACAF0C220DF05B00DB2560 /* StudioViewController.swift */; };
 		1AACAF10220DF05B00DB2560 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AACAF0E220DF05B00DB2560 /* Main.storyboard */; };
-		1AACAF12220DF05C00DB2560 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AACAF11220DF05C00DB2560 /* Assets.xcassets */; };
 		1AACAF15220DF05C00DB2560 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AACAF13220DF05C00DB2560 /* LaunchScreen.storyboard */; };
 		4016A9DB226CE80C00597026 /* PositionDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4016A9DA226CE80C00597026 /* PositionDisplayView.swift */; };
 		406D75DF224EAE1700C583B9 /* ToolBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D75DE224EAE1700C583B9 /* ToolBarManager.swift */; };
@@ -24,6 +23,8 @@
 		6B18897F226CE0780096FBBA /* main.scn in Resources */ = {isa = PBXBuildFile; fileRef = 6B18897E226CE0780096FBBA /* main.scn */; };
 		B616B4B02252DE98005BB371 /* RotationToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B616B4AF2252DE98005BB371 /* RotationToolBar.swift */; };
 		B6311D2B227B4408008479BB /* grid_white.png in Resources */ = {isa = PBXBuildFile; fileRef = B6311D2A227B4408008479BB /* grid_white.png */; };
+		B6311D2D227E1BE7008479BB /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6311D2C227E1BE7008479BB /* MenuView.swift */; };
+		B6311D2F227E1D08008479BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6311D2E227E1D08008479BB /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +49,6 @@
 		1AACAF08220DF05B00DB2560 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1AACAF0C220DF05B00DB2560 /* StudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioViewController.swift; sourceTree = "<group>"; };
 		1AACAF0F220DF05B00DB2560 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		1AACAF11220DF05C00DB2560 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1AACAF14220DF05C00DB2560 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1AACAF16220DF05C00DB2560 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AACAF1B220DF05C00DB2560 /* SceneKitTry1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SceneKitTry1Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +65,8 @@
 		6B18897E226CE0780096FBBA /* main.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = main.scn; sourceTree = "<group>"; };
 		B616B4AF2252DE98005BB371 /* RotationToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationToolBar.swift; sourceTree = "<group>"; };
 		B6311D2A227B4408008479BB /* grid_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grid_white.png; path = resources/grid_white.png; sourceTree = "<group>"; };
+		B6311D2C227E1BE7008479BB /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuView.swift; path = ../../../../../../../Desktop/MenuView.swift; sourceTree = "<group>"; };
+		B6311D2E227E1D08008479BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../../../Desktop/Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,7 +123,7 @@
 				6B18897E226CE0780096FBBA /* main.scn */,
 				B6311D2A227B4408008479BB /* grid_white.png */,
 				1AACAF0E220DF05B00DB2560 /* Main.storyboard */,
-				1AACAF11220DF05C00DB2560 /* Assets.xcassets */,
+				B6311D2E227E1D08008479BB /* Assets.xcassets */,
 				1AACAF13220DF05C00DB2560 /* LaunchScreen.storyboard */,
 				1AACAF16220DF05C00DB2560 /* Info.plist */,
 				406D75E0224EB27000C583B9 /* Robot.swift */,
@@ -135,6 +137,7 @@
 				406D75E3224EB36900C583B9 /* HierarchyView.swift */,
 				406D75E5224EB37600C583B9 /* ToggleToolBarView.swift */,
 				4016A9DA226CE80C00597026 /* PositionDisplayView.swift */,
+				B6311D2C227E1BE7008479BB /* MenuView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -265,8 +268,8 @@
 			files = (
 				6B18897F226CE0780096FBBA /* main.scn in Resources */,
 				1AACAF15220DF05C00DB2560 /* LaunchScreen.storyboard in Resources */,
-				1AACAF12220DF05C00DB2560 /* Assets.xcassets in Resources */,
 				1AACAF10220DF05B00DB2560 /* Main.storyboard in Resources */,
+				B6311D2F227E1D08008479BB /* Assets.xcassets in Resources */,
 				B6311D2B227B4408008479BB /* grid_white.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,6 +302,7 @@
 				406D75E4224EB36900C583B9 /* HierarchyView.swift in Sources */,
 				406D75E6224EB37600C583B9 /* ToggleToolBarView.swift in Sources */,
 				1AACAF0D220DF05B00DB2560 /* StudioViewController.swift in Sources */,
+				B6311D2D227E1BE7008479BB /* MenuView.swift in Sources */,
 				406D75EA224EC10100C583B9 /* ShapeSelectorToolBar.swift in Sources */,
 				406D75DF224EAE1700C583B9 /* ToolBarManager.swift in Sources */,
 				B616B4B02252DE98005BB371 /* RotationToolBar.swift in Sources */,
