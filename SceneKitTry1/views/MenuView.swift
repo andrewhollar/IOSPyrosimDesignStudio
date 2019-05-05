@@ -16,6 +16,7 @@ import SceneKit
 class MenuView: UIView{
     
     var viewController: StudioViewController
+    var robot: Robot
     
     var menuToggleButton: UIButton
     var exportButton: UIButton
@@ -30,6 +31,7 @@ class MenuView: UIView{
     init(controller: StudioViewController){
         self.viewController = controller
         self.menuToggled = false
+        self.robot = controller.getRobot()
         
         //Menu Container
         self.toolbar = CGRect(x: 300, y:0, width: buttonWidth, height: 2*buttonHeight)
@@ -79,6 +81,44 @@ class MenuView: UIView{
     @objc
     func export() {
         print("Export")
+        
+        let shapes = self.robot.getShapeNodes()
+        let joints = self.robot.getJointNodes()
+        
+        var s = ""
+        
+        var i = 0
+        for shape in shapes {
+            if shape.geometry is SCNBox {
+                var length = ((shape.geometry as! SCNBox).length).description
+                var width = ((shape.geometry as! SCNBox).width).description
+                var height = ((shape.geometry as! SCNBox).height).description
+                
+                s += "self.O\(i) = sim.send_box(x=\(shape.position.x), y=\(shape.position.z), z=\(shape.position.y), length=\(length), width=\(width), height=\(height), r=1, g=0, b=0)\n"
+            }
+            else if shape.geometry is SCNCylinder {
+                var length = ((shape.geometry as! SCNCylinder).height).description
+                var radius = ((shape.geometry as! SCNCylinder).radius).description
+                
+                s += "self.O\(i) = sim.send_cylinder(x=\(shape.position.x), y=\(shape.position.z), z=\(shape.position.y) length=\(length), radius=\(radius), r=1, g=0, b=0)\n"
+            }
+            else if shape.geometry is SCNSphere {
+                var radius = ((shape.geometry as! SCNSphere).radius).description
+                
+                s += "self.O\(i) = sim.send_sphere(x=\(shape.position.x), y=\(shape.position.z), z=\(shape.position.y), radius=\(radius), r=1, g=0, b=0)\n"
+            }
+            i += 1
+            print(s)
+        }
+        
+        //NEED A WAY TO CONNECT JOINTS TO 2 OBJECTS
+        i = 0
+        for joint in joints {
+            print("self.J\(i) = sim.send_hinge_joint( first_body_id = self.O0, second_body_id = self.O1, x=0, y=c.L/2, z=c.L+c.R, n1 = -1, n2 = 0, n3 = 0, lo = -3.14159/2 , hi=3.14159/2 )\n")
+            i += 1
+        }
+        
+        
     }
     
 }

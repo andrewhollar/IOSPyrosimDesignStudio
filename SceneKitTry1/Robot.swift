@@ -15,6 +15,12 @@ class Robot{
     var shapeNodes = [SCNNode]()
     var jointNodes = [Joint]()
     var sensorNodes = [Sensor]()
+    
+    var boxNodes = [SCNBox]()
+    var cylinderNodes = [SCNCylinder]()
+//    var
+    
+//    var jointNodes = [SCN]
     //synapse matrix
 
     func addShapeNode(node: SCNNode){
