@@ -2,7 +2,7 @@
 
 ## Synopsis
 
-<a href="https://ccappelle.github.io/pyrosim/">"Pyrosim</a> (Py)thon (Ro)bot (Sim)ulator is a python interface for ODE, primarily focused on neurally controlled robots. With it you can send bodies (cylinders, boxes, etc.), joints, and neural networks."
+"<a href="https://ccappelle.github.io/pyrosim/">Pyrosim</a> (Py)thon (Ro)bot (Sim)ulator is a python interface for ODE, primarily focused on neurally controlled robots. With it you can send bodies (cylinders, boxes, etc.), joints, and neural networks."
 
 In this project, we lay the foundations for a design studio iOS app where users can create pyrosim robots without needing to write code.  Once a robot is designed, the user can export their code for use in a pyrosim simulation.
 
